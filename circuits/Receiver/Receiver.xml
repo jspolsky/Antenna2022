@@ -1,0 +1,558 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<export version="E">
+  <design>
+    <source>/Users/spolsky/Dropbox/Arduino/Antenna2022/circuits/Receiver/Receiver.kicad_sch</source>
+    <date>Sunday, May 08, 2022 at 11:28:28 AM</date>
+    <tool>Eeschema (6.0.5-0)</tool>
+    <sheet number="1" name="/" tstamps="/">
+      <title_block>
+        <title/>
+        <company/>
+        <rev/>
+        <date/>
+        <source>Receiver.kicad_sch</source>
+        <comment number="1" value=""/>
+        <comment number="2" value=""/>
+        <comment number="3" value=""/>
+        <comment number="4" value=""/>
+        <comment number="5" value=""/>
+        <comment number="6" value=""/>
+        <comment number="7" value=""/>
+        <comment number="8" value=""/>
+        <comment number="9" value=""/>
+      </title_block>
+    </sheet>
+  </design>
+  <components>
+    <comp ref="C1">
+      <value>10uF</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <fields>
+        <field name="JLCPCB">C15850</field>
+      </fields>
+      <libsource lib="Device" part="C_Small" description="Unpolarized capacitor, small symbol"/>
+      <property name="JLCPCB" value="C15850"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="Receiver.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>edda8d26-2924-422d-94c4-bcda0f6b3a98</tstamps>
+    </comp>
+    <comp ref="C2">
+      <value>10uF</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <fields>
+        <field name="JLCPCB">C15850</field>
+      </fields>
+      <libsource lib="Device" part="C_Small" description="Unpolarized capacitor, small symbol"/>
+      <property name="JLCPCB" value="C15850"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="Receiver.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>3e0bd896-6949-44df-91c1-740a2b1aa0a1</tstamps>
+    </comp>
+    <comp ref="C3">
+      <value>22uF</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <fields>
+        <field name="JLCPCB">C45783</field>
+      </fields>
+      <libsource lib="Device" part="C_Small" description="Unpolarized capacitor, small symbol"/>
+      <property name="JLCPCB" value="C45783"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="Receiver.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>9b20085c-c4fe-4607-b511-ffaddd11f3bc</tstamps>
+    </comp>
+    <comp ref="C4">
+      <value>0.1uF</value>
+      <footprint>Capacitor_SMD:C_0402_1005Metric</footprint>
+      <fields>
+        <field name="JLCPCB">C1525</field>
+      </fields>
+      <libsource lib="Device" part="C_Small" description="Unpolarized capacitor, small symbol"/>
+      <property name="JLCPCB" value="C1525"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="Receiver.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>43e2bedb-0771-46d4-92da-ed13252b4983</tstamps>
+    </comp>
+    <comp ref="C5">
+      <value>100uF 16V</value>
+      <footprint>Capacitor_SMD:C_1210_3225Metric</footprint>
+      <fields>
+        <field name="JLCPCB">C90143</field>
+      </fields>
+      <libsource lib="Device" part="C_Small" description="Unpolarized capacitor, small symbol"/>
+      <property name="JLCPCB" value="C90143"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="Receiver.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>04982d31-b2bd-4dcc-9ecd-2f2913e96683</tstamps>
+    </comp>
+    <comp ref="C6">
+      <value>100uF 16V</value>
+      <footprint>Capacitor_SMD:C_1210_3225Metric</footprint>
+      <fields>
+        <field name="JLCPCB">C90143</field>
+      </fields>
+      <libsource lib="Device" part="C_Small" description="Unpolarized capacitor, small symbol"/>
+      <property name="JLCPCB" value="C90143"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="Receiver.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>48b6cd74-78ef-4656-8ad3-b88be83cd400</tstamps>
+    </comp>
+    <comp ref="C7">
+      <value>100uF 16V</value>
+      <footprint>Capacitor_SMD:C_1210_3225Metric</footprint>
+      <fields>
+        <field name="JLCPCB">C90143</field>
+      </fields>
+      <libsource lib="Device" part="C_Small" description="Unpolarized capacitor, small symbol"/>
+      <property name="JLCPCB" value="C90143"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="Receiver.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>c785e51e-4714-4c7c-a03d-c4a79adf8835</tstamps>
+    </comp>
+    <comp ref="D1">
+      <value>LED</value>
+      <footprint>LED_SMD:LED_0805_2012Metric</footprint>
+      <datasheet>https://datasheet.lcsc.com/lcsc/2008201032_Foshan-NationStar-Optoelectronics-NCD0805R1_C84256.pdf</datasheet>
+      <fields>
+        <field name="JLCPCB">C84256</field>
+      </fields>
+      <libsource lib="Device" part="LED" description="Light emitting diode"/>
+      <property name="JLCPCB" value="C84256"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="Receiver.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>6526fec3-f704-4d81-99f0-f1798a6975e2</tstamps>
+    </comp>
+    <comp ref="J1">
+      <value>ORA. . .12V</value>
+      <footprint>Connector_Wire:SolderWire-0.25sqmm_1x01_D0.65mm_OD1.7mm</footprint>
+      <libsource lib="Connector" part="Conn_01x01_Male" description="Generic connector, single row, 01x01, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="Receiver.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>d21f9f13-8f39-4c32-8940-596c75d14d3f</tstamps>
+    </comp>
+    <comp ref="J2">
+      <value>ORA___12V</value>
+      <footprint>Connector_Wire:SolderWire-0.25sqmm_1x01_D0.65mm_OD1.7mm</footprint>
+      <libsource lib="Connector" part="Conn_01x01_Male" description="Generic connector, single row, 01x01, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="Receiver.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>b3bea26c-78cb-44db-b2a3-435984330a9b</tstamps>
+    </comp>
+    <comp ref="J3">
+      <value>GRN. . .12V</value>
+      <footprint>Connector_Wire:SolderWire-0.25sqmm_1x01_D0.65mm_OD1.7mm</footprint>
+      <libsource lib="Connector" part="Conn_01x01_Male" description="Generic connector, single row, 01x01, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="Receiver.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>f572d931-fc72-4f0a-acd2-38e7c1ba79aa</tstamps>
+    </comp>
+    <comp ref="J4">
+      <value>BLU___A</value>
+      <footprint>Connector_Wire:SolderWire-0.25sqmm_1x01_D0.65mm_OD1.7mm</footprint>
+      <libsource lib="Connector" part="Conn_01x01_Male" description="Generic connector, single row, 01x01, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="Receiver.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>a60cb328-9eca-45d0-b71b-810dbf5a04c3</tstamps>
+    </comp>
+    <comp ref="J5">
+      <value>BLU. . .B</value>
+      <footprint>Connector_Wire:SolderWire-0.25sqmm_1x01_D0.65mm_OD1.7mm</footprint>
+      <libsource lib="Connector" part="Conn_01x01_Male" description="Generic connector, single row, 01x01, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="Receiver.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>43303808-cc1f-4dff-bbe9-25e37b366b76</tstamps>
+    </comp>
+    <comp ref="J6">
+      <value>GRN___GND</value>
+      <footprint>Connector_Wire:SolderWire-0.25sqmm_1x01_D0.65mm_OD1.7mm</footprint>
+      <libsource lib="Connector" part="Conn_01x01_Male" description="Generic connector, single row, 01x01, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="Receiver.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>157dcff7-a7ea-496a-8965-66fec64de57e</tstamps>
+    </comp>
+    <comp ref="J7">
+      <value>BRN. . .GND</value>
+      <footprint>Connector_Wire:SolderWire-0.25sqmm_1x01_D0.65mm_OD1.7mm</footprint>
+      <libsource lib="Connector" part="Conn_01x01_Male" description="Generic connector, single row, 01x01, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="Receiver.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>1521bfbc-ad78-4901-a969-da0790efe484</tstamps>
+    </comp>
+    <comp ref="J8">
+      <value>BRN___GND</value>
+      <footprint>Connector_Wire:SolderWire-0.25sqmm_1x01_D0.65mm_OD1.7mm</footprint>
+      <libsource lib="Connector" part="Conn_01x01_Male" description="Generic connector, single row, 01x01, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="Receiver.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>75fc23e2-2520-490c-8914-7a2e4a8cefa1</tstamps>
+    </comp>
+    <comp ref="J9">
+      <value>12V</value>
+      <footprint>Connector_Wire:SolderWire-1sqmm_1x01_D1.4mm_OD2.7mm</footprint>
+      <libsource lib="Connector" part="Conn_01x01_Male" description="Generic connector, single row, 01x01, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="Receiver.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>6dbbdef5-0ae7-41bf-be4c-f967c719f1d3</tstamps>
+    </comp>
+    <comp ref="J10">
+      <value>DI</value>
+      <footprint>Connector_Wire:SolderWire-1sqmm_1x01_D1.4mm_OD2.7mm</footprint>
+      <libsource lib="Connector" part="Conn_01x01_Male" description="Generic connector, single row, 01x01, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="Receiver.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>a524b17a-5fd1-4168-b7b6-ae80a944e6d2</tstamps>
+    </comp>
+    <comp ref="J11">
+      <value>GND</value>
+      <footprint>Connector_Wire:SolderWire-1sqmm_1x01_D1.4mm_OD2.7mm</footprint>
+      <libsource lib="Connector" part="Conn_01x01_Male" description="Generic connector, single row, 01x01, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="Receiver.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>1c926daf-5c58-40db-be92-ef7ff90648a3</tstamps>
+    </comp>
+    <comp ref="R1">
+      <value>10K</value>
+      <footprint>Resistor_SMD:R_0603_1608Metric</footprint>
+      <fields>
+        <field name="JLCPCB">C25804</field>
+      </fields>
+      <libsource lib="Device" part="R_US" description="Resistor, US symbol"/>
+      <property name="JLCPCB" value="C25804"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="Receiver.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>9f7c9c77-7ea1-4166-8350-df4fe1e7a5bb</tstamps>
+    </comp>
+    <comp ref="R2">
+      <value>10K</value>
+      <footprint>Resistor_SMD:R_0603_1608Metric</footprint>
+      <fields>
+        <field name="JLCPCB">C25804</field>
+      </fields>
+      <libsource lib="Device" part="R_US" description="Resistor, US symbol"/>
+      <property name="JLCPCB" value="C25804"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="Receiver.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>5ae8aef7-544a-4494-bda7-c4763075e9bb</tstamps>
+    </comp>
+    <comp ref="R3">
+      <value>10K</value>
+      <footprint>Resistor_SMD:R_0603_1608Metric</footprint>
+      <fields>
+        <field name="JLCPCB">C25804</field>
+      </fields>
+      <libsource lib="Device" part="R_US" description="Resistor, US symbol"/>
+      <property name="JLCPCB" value="C25804"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="Receiver.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>442c560a-f47d-4f5d-9829-f6dbbb9db5e0</tstamps>
+    </comp>
+    <comp ref="R4">
+      <value>1K</value>
+      <footprint>Resistor_SMD:R_0603_1608Metric</footprint>
+      <fields>
+        <field name="JLCPCB">C21190</field>
+      </fields>
+      <libsource lib="Device" part="R_US" description="Resistor, US symbol"/>
+      <property name="JLCPCB" value="C21190"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="Receiver.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>f96e3a7d-f664-4542-8946-7273b6cf556d</tstamps>
+    </comp>
+    <comp ref="R5">
+      <value>10K</value>
+      <footprint>Resistor_SMD:R_0603_1608Metric</footprint>
+      <fields>
+        <field name="JLCPCB">C25804</field>
+      </fields>
+      <libsource lib="Device" part="R_US" description="Resistor, US symbol"/>
+      <property name="JLCPCB" value="C25804"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="Receiver.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>48fef013-8282-4600-b960-d4e972588e73</tstamps>
+    </comp>
+    <comp ref="R6">
+      <value>20K</value>
+      <footprint>Resistor_SMD:R_0603_1608Metric</footprint>
+      <fields>
+        <field name="JLCPCB">C4184</field>
+      </fields>
+      <libsource lib="Device" part="R_US" description="Resistor, US symbol"/>
+      <property name="JLCPCB" value="C4184"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="Receiver.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>a5ea9525-4290-4b98-8904-ab4ba117b9a5</tstamps>
+    </comp>
+    <comp ref="R7">
+      <value>20K</value>
+      <footprint>Resistor_SMD:R_0603_1608Metric</footprint>
+      <fields>
+        <field name="JLCPCB">C4184</field>
+      </fields>
+      <libsource lib="Device" part="R_US" description="Resistor, US symbol"/>
+      <property name="JLCPCB" value="C4184"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="Receiver.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>2d38e3cc-18e1-4429-93c1-07c12a5f479a</tstamps>
+    </comp>
+    <comp ref="R8">
+      <value>120</value>
+      <footprint>Resistor_SMD:R_0603_1608Metric</footprint>
+      <fields>
+        <field name="JLCPCB">C22787</field>
+      </fields>
+      <libsource lib="Device" part="R_US" description="Resistor, US symbol"/>
+      <property name="JLCPCB" value="C22787"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="Receiver.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>66f0db24-9245-43f5-bf71-35333237c1f1</tstamps>
+    </comp>
+    <comp ref="U1">
+      <value>AMS1117-5.0</value>
+      <footprint>Package_TO_SOT_SMD:SOT-223-3_TabPin2</footprint>
+      <datasheet>http://www.advanced-monolithic.com/pdf/ds1117.pdf</datasheet>
+      <fields>
+        <field name="JLCPCB">C6187</field>
+      </fields>
+      <libsource lib="Regulator_Linear" part="AMS1117-5.0" description="1A Low Dropout regulator, positive, 5.0V fixed output, SOT-223"/>
+      <property name="JLCPCB" value="C6187"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="Receiver.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>054ccf07-2bda-441b-aa44-bdcc1a471fbc</tstamps>
+    </comp>
+    <comp ref="U2">
+      <value>MAX485E</value>
+      <footprint>Package_SO:SOIC-8_3.9x4.9mm_P1.27mm</footprint>
+      <datasheet>https://datasheets.maximintegrated.com/en/ds/MAX1487E-MAX491E.pdf</datasheet>
+      <fields>
+        <field name="JLCPCB">C19738</field>
+      </fields>
+      <libsource lib="Interface_UART" part="MAX485E" description="Half duplex RS-485/RS-422, 2.5 Mbps, ±15kV electro-static discharge (ESD) protection, no slew-rate, no low-power shutdown, with receiver/driver enable, 32 receiver drive kapacitity, DIP-8 and SOIC-8"/>
+      <property name="JLCPCB" value="C19738"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="Receiver.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>ba1f340e-8fb8-4336-82f8-f2fe375784ed</tstamps>
+    </comp>
+  </components>
+  <libparts>
+    <libpart lib="Connector" part="Conn_01x01_Male">
+      <description>Generic connector, single row, 01x01, script generated (kicad-library-utils/schlib/autogen/connector/)</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>Connector*:*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">J</field>
+        <field name="Value">Conn_01x01_Male</field>
+        <field name="Datasheet">~</field>
+      </fields>
+      <pins>
+        <pin num="1" name="Pin_1" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Device" part="C_Small">
+      <description>Unpolarized capacitor, small symbol</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>C_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">C</field>
+        <field name="Value">C_Small</field>
+        <field name="Datasheet">~</field>
+      </fields>
+      <pins>
+        <pin num="1" name="" type="passive"/>
+        <pin num="2" name="" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Device" part="LED">
+      <description>Light emitting diode</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>LED*</fp>
+        <fp>LED_SMD:*</fp>
+        <fp>LED_THT:*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">D</field>
+        <field name="Value">LED</field>
+        <field name="Datasheet">~</field>
+      </fields>
+      <pins>
+        <pin num="1" name="K" type="passive"/>
+        <pin num="2" name="A" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Device" part="R_US">
+      <description>Resistor, US symbol</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>R_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">R</field>
+        <field name="Value">R_US</field>
+        <field name="Datasheet">~</field>
+      </fields>
+      <pins>
+        <pin num="1" name="" type="passive"/>
+        <pin num="2" name="" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Interface_UART" part="MAX485E">
+      <description>Half duplex RS-485/RS-422, 2.5 Mbps, ±15kV electro-static discharge (ESD) protection, no slew-rate, no low-power shutdown, with receiver/driver enable, 32 receiver drive kapacitity, DIP-8 and SOIC-8</description>
+      <docs>https://datasheets.maximintegrated.com/en/ds/MAX1487E-MAX491E.pdf</docs>
+      <footprints>
+        <fp>DIP*W7.62mm*</fp>
+        <fp>SOIC*3.9x4.9mm*P1.27mm*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">U</field>
+        <field name="Value">MAX485E</field>
+        <field name="Datasheet">https://datasheets.maximintegrated.com/en/ds/MAX1487E-MAX491E.pdf</field>
+      </fields>
+      <pins>
+        <pin num="1" name="RO" type="output"/>
+        <pin num="2" name="~{RE}" type="input"/>
+        <pin num="3" name="DE" type="input"/>
+        <pin num="4" name="DI" type="input"/>
+        <pin num="5" name="GND" type="power_in"/>
+        <pin num="6" name="A" type="bidirectional"/>
+        <pin num="7" name="B" type="bidirectional"/>
+        <pin num="8" name="VCC" type="power_in"/>
+      </pins>
+    </libpart>
+    <libpart lib="Regulator_Linear" part="AMS1117-5.0">
+      <description>1A Low Dropout regulator, positive, 5.0V fixed output, SOT-223</description>
+      <docs>http://www.advanced-monolithic.com/pdf/ds1117.pdf</docs>
+      <footprints>
+        <fp>SOT?223*TabPin2*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">U</field>
+        <field name="Value">AMS1117-5.0</field>
+        <field name="Footprint">Package_TO_SOT_SMD:SOT-223-3_TabPin2</field>
+        <field name="Datasheet">http://www.advanced-monolithic.com/pdf/ds1117.pdf</field>
+      </fields>
+      <pins>
+        <pin num="1" name="GND" type="power_in"/>
+        <pin num="2" name="VO" type="power_out"/>
+        <pin num="3" name="VI" type="power_in"/>
+      </pins>
+    </libpart>
+  </libparts>
+  <libraries>
+    <library logical="Connector">
+      <uri>/Applications/KiCad/KiCad.app/Contents/SharedSupport/symbols//Connector.kicad_sym</uri>
+    </library>
+    <library logical="Device">
+      <uri>/Applications/KiCad/KiCad.app/Contents/SharedSupport/symbols//Device.kicad_sym</uri>
+    </library>
+    <library logical="Interface_UART">
+      <uri>/Applications/KiCad/KiCad.app/Contents/SharedSupport/symbols//Interface_UART.kicad_sym</uri>
+    </library>
+    <library logical="Regulator_Linear">
+      <uri>/Applications/KiCad/KiCad.app/Contents/SharedSupport/symbols//Regulator_Linear.kicad_sym</uri>
+    </library>
+  </libraries>
+  <nets>
+    <net code="1" name="+5V">
+      <node ref="C2" pin="1" pintype="passive"/>
+      <node ref="C3" pin="1" pintype="passive"/>
+      <node ref="C4" pin="1" pintype="passive"/>
+      <node ref="R1" pin="1" pintype="passive"/>
+      <node ref="R2" pin="1" pintype="passive"/>
+      <node ref="R3" pin="1" pintype="passive"/>
+      <node ref="R4" pin="1" pintype="passive"/>
+      <node ref="R5" pin="1" pintype="passive"/>
+      <node ref="R6" pin="1" pintype="passive"/>
+      <node ref="U1" pin="2" pinfunction="VO" pintype="power_out"/>
+      <node ref="U2" pin="8" pinfunction="VCC" pintype="power_in"/>
+    </net>
+    <net code="2" name="+12V">
+      <node ref="C1" pin="1" pintype="passive"/>
+      <node ref="C5" pin="1" pintype="passive"/>
+      <node ref="C6" pin="1" pintype="passive"/>
+      <node ref="C7" pin="1" pintype="passive"/>
+      <node ref="J1" pin="1" pinfunction="Pin_1" pintype="passive"/>
+      <node ref="J2" pin="1" pinfunction="Pin_1" pintype="passive"/>
+      <node ref="J3" pin="1" pinfunction="Pin_1" pintype="passive"/>
+      <node ref="J9" pin="1" pinfunction="Pin_1" pintype="passive"/>
+      <node ref="U1" pin="3" pinfunction="VI" pintype="power_in"/>
+    </net>
+    <net code="3" name="/A">
+      <node ref="J4" pin="1" pinfunction="Pin_1" pintype="passive"/>
+      <node ref="R6" pin="2" pintype="passive"/>
+      <node ref="R8" pin="2" pintype="passive"/>
+      <node ref="U2" pin="6" pinfunction="A" pintype="bidirectional"/>
+    </net>
+    <net code="4" name="/B">
+      <node ref="J5" pin="1" pinfunction="Pin_1" pintype="passive"/>
+      <node ref="R7" pin="1" pintype="passive"/>
+      <node ref="R8" pin="1" pintype="passive"/>
+      <node ref="U2" pin="7" pinfunction="B" pintype="bidirectional"/>
+    </net>
+    <net code="5" name="/LED DI">
+      <node ref="J10" pin="1" pinfunction="Pin_1" pintype="passive"/>
+      <node ref="R1" pin="2" pintype="passive"/>
+      <node ref="U2" pin="1" pinfunction="RO" pintype="output"/>
+    </net>
+    <net code="6" name="GND">
+      <node ref="C1" pin="2" pintype="passive"/>
+      <node ref="C2" pin="2" pintype="passive"/>
+      <node ref="C3" pin="2" pintype="passive"/>
+      <node ref="C4" pin="2" pintype="passive"/>
+      <node ref="C5" pin="2" pintype="passive"/>
+      <node ref="C6" pin="2" pintype="passive"/>
+      <node ref="C7" pin="2" pintype="passive"/>
+      <node ref="D1" pin="1" pinfunction="K" pintype="passive"/>
+      <node ref="J11" pin="1" pinfunction="Pin_1" pintype="passive"/>
+      <node ref="J6" pin="1" pinfunction="Pin_1" pintype="passive"/>
+      <node ref="J7" pin="1" pinfunction="Pin_1" pintype="passive"/>
+      <node ref="J8" pin="1" pinfunction="Pin_1" pintype="passive"/>
+      <node ref="R2" pin="2" pintype="passive"/>
+      <node ref="R3" pin="2" pintype="passive"/>
+      <node ref="R7" pin="2" pintype="passive"/>
+      <node ref="U1" pin="1" pinfunction="GND" pintype="power_in"/>
+      <node ref="U2" pin="2" pinfunction="~{RE}" pintype="input"/>
+      <node ref="U2" pin="3" pinfunction="DE" pintype="input"/>
+      <node ref="U2" pin="5" pinfunction="GND" pintype="power_in"/>
+    </net>
+    <net code="7" name="Net-(D1-Pad2)">
+      <node ref="D1" pin="2" pinfunction="A" pintype="passive"/>
+      <node ref="R4" pin="2" pintype="passive"/>
+    </net>
+    <net code="8" name="Net-(R5-Pad2)">
+      <node ref="R5" pin="2" pintype="passive"/>
+      <node ref="U2" pin="4" pinfunction="DI" pintype="input"/>
+    </net>
+  </nets>
+</export>
