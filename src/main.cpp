@@ -1,5 +1,7 @@
 #include <Arduino.h>
+
 #include <OctoWS2811.h>
+#include <Adafruit_MCP23X17.h>
 
 #include "Util.h"
 
@@ -15,13 +17,29 @@ int drawingMemory[ledsPerStrip * 6];
 const int config = WS2811_RGB | WS2811_800kHz;
 
 OctoWS2811 leds(ledsPerStrip, displayMemory, drawingMemory, config, numPins, pinList);
+Adafruit_MCP23X17 mcp;
+
+#define BUTTON_PIN 0
 
 void setup()
 {
   Util::setup();
 
-  leds.begin();
-  leds.show();
+  if (!mcp.begin_I2C())
+  {
+    dbgprintf("Error\n");
+    while (1)
+      ;
+  }
+
+  // configure pin for input with pull up
+  for (int i = 0; i < 16; i++)
+  {
+    mcp.pinMode(i, INPUT_PULLUP);
+  }
+
+  // leds.begin();
+  // leds.show();
 }
 
 // normal:
@@ -65,15 +83,22 @@ void colorWipe(int color, int wait)
 
 void loop()
 {
-  int microsec = 2000000 / leds.numPixels(); // change them all in 2 seconds
+  // int microsec = 2000000 / leds.numPixels(); // change them all in 2 seconds
 
-  // uncomment for voltage controlled speed
-  // millisec = analogRead(A9) / 40;
+  // // uncomment for voltage controlled speed
+  // // millisec = analogRead(A9) / 40;
 
-  colorWipe(RED, microsec);
-  colorWipe(GREEN, microsec);
-  colorWipe(BLUE, microsec);
-  colorWipe(WHITE, microsec);
+  // colorWipe(RED, microsec);
+  // colorWipe(GREEN, microsec);
+  // colorWipe(BLUE, microsec);
+  // colorWipe(WHITE, microsec);
 
-  dbgprintf("time %u\n", millis());
+  // dbgprintf("time %u\n", millis());
+
+  for (int i = 0; i < 16; i++)
+    if (!mcp.digitalRead(i))
+    {
+      dbgprintf("Button %d Pressed\n", i);
+      delay(1000);
+    }
 }
