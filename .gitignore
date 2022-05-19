@@ -8,3 +8,5 @@ circuits/Receiver/receiver-1.0-gerber/.DS_Store
 circuits/Receiver/fp-info-cache
 circuits/Receiver/receiver-1.0-gerber/Receiver-F_Mask.gbr
 circuits/.DS_Store
+circuits/Receiver/Receiver-backups/*
+
