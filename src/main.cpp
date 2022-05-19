@@ -1,27 +1,13 @@
 #include <Arduino.h>
-
-// void setup()
-// {
-//   // put your setup code here, to run once:
-//   pinMode(13, OUTPUT);
-// }
-
-// void loop()
-// {
-//   // put your main code here, to run repeatedly:
-//   digitalWrite(13, HIGH);
-//   delay(100);
-//   digitalWrite(13, LOW);
-//   delay(900);
-// }
-
 #include <OctoWS2811.h>
+
+#include "Util.h"
 
 const int numPins = 1;
 byte pinList[numPins] = {
     33,
 };
-const int ledsPerStrip = 300;
+const int ledsPerStrip = 16;
 
 DMAMEM int displayMemory[ledsPerStrip * 6];
 int drawingMemory[ledsPerStrip * 6];
@@ -32,6 +18,8 @@ OctoWS2811 leds(ledsPerStrip, displayMemory, drawingMemory, config, numPins, pin
 
 void setup()
 {
+  Util::setup();
+
   leds.begin();
   leds.show();
 }
@@ -87,5 +75,5 @@ void loop()
   colorWipe(BLUE, microsec);
   colorWipe(WHITE, microsec);
 
-  delay(10000);
+  dbgprintf("time %u\n", millis());
 }
