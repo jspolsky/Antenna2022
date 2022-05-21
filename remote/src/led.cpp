@@ -30,12 +30,12 @@ namespace Led
   DMAMEM int displayMemory[ledsPerStrip * numPins * 3 / 4];
   int drawingMemory[ledsPerStrip * numPins * 3 / 4];
   OctoWS2811 octo(ledsPerStrip, displayMemory, drawingMemory, WS2811_RGB | WS2811_800kHz, numPins, pinList);
-  CTeensy4Controller<RGB, WS2811_800kHz> *pcontroller;
+  CTeensy4Controller<GRB, WS2811_800kHz> *pcontroller;
 
   void setup()
   {
     octo.begin();
-    pcontroller = new CTeensy4Controller<RGB, WS2811_800kHz>(&octo);
+    pcontroller = new CTeensy4Controller<GRB, WS2811_800kHz>(&octo);
 
     FastLED.setBrightness(255);
 
@@ -49,7 +49,9 @@ namespace Led
   {
     int litbutton = (millis() / 250) % 16;
     for (int i = 0; i < 16; i++)
+    {
       pixels[i] = litbutton >= i ? CRGB(CHSV(i * 16, 255, 255)) : CRGB::Black;
+    }
 
     FastLED.show();
   }
