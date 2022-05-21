@@ -1,45 +1,13 @@
 #include <Arduino.h>
 #include <Bounce2.h>
-#include <OctoWS2811.h>
+
 #include "Util.h"
+#include "led.h"
 
 // BUTTONS:
 
 const uint8_t pinStart = 25, cpins = 16;
 Bounce rgbounce[cpins];
-
-// NEOPIXELS:
-
-const int numPins = 1;
-byte pinList[numPins] = {
-    24,
-};
-const int ledsPerStrip = 16;
-
-DMAMEM int displayMemory[ledsPerStrip * 6];
-int drawingMemory[ledsPerStrip * 6];
-
-const int config = WS2811_GRB | WS2811_800kHz;
-
-OctoWS2811 leds(ledsPerStrip, displayMemory, drawingMemory, config, numPins, pinList);
-
-#define RED 0xFF0000
-#define GREEN 0x00FF00
-#define BLUE 0x0000FF
-#define YELLOW 0xFFFF00
-#define PINK 0xFF1088
-#define ORANGE 0xE05800
-#define WHITE 0xFFFFFF
-
-void colorWipe(int color, int wait)
-{
-  for (int i = 0; i < leds.numPixels(); i++)
-  {
-    leds.setPixel(i, color);
-    leds.show();
-    delayMicroseconds(wait);
-  }
-}
 
 void setup()
 {
@@ -53,8 +21,7 @@ void setup()
   dbgprintf("Ready\n");
   Serial1.begin(500000);
 
-  leds.begin();
-  leds.show();
+  Led::setup();
 }
 
 void loop()
@@ -71,10 +38,5 @@ void loop()
     }
   }
 
-  int microsec = 2000000 / leds.numPixels(); // change them all in 2 seconds
-
-  colorWipe(RED, microsec);
-  colorWipe(GREEN, microsec);
-  colorWipe(BLUE, microsec);
-  colorWipe(WHITE, microsec);
+  Led::loop();
 }
