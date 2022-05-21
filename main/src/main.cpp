@@ -25,21 +25,11 @@ void setup()
 {
   Util::setup();
 
-  if (!mcp.begin_I2C())
-  {
-    dbgprintf("Error\n");
-    while (1)
-      ;
-  }
-
-  // configure pin for input with pull up
-  for (int i = 0; i < 16; i++)
-  {
-    mcp.pinMode(i, INPUT_PULLUP);
-  }
-
   // leds.begin();
   // leds.show();
+
+  Serial1.begin(500000);
+  dbgprintf("receiver ready\n");
 }
 
 // normal:
@@ -95,10 +85,10 @@ void loop()
 
   // dbgprintf("time %u\n", millis());
 
-  for (int i = 0; i < 16; i++)
-    if (!mcp.digitalRead(i))
-    {
-      dbgprintf("Button %d Pressed\n", i);
-      delay(1000);
-    }
+  int incoming_byte = 0;
+  if (Serial1.available() > 0)
+  {
+    incoming_byte = Serial1.read();
+    dbgprintf("Serial read: %x\n", incoming_byte);
+  }
 }
