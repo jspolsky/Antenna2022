@@ -9,6 +9,7 @@ main/circuits/Receiver/fp-info-cache
 main/circuits/Receiver/receiver-1.0-gerber/Receiver-F_Mask.gbr
 main/circuits/.DS_Store
 main/circuits/Receiver/Receiver-backups/*
+main/circuits/CentralBrain/CentralBrain-backups/*
 
 .vscode/launch.json
 .gitignore
