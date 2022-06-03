@@ -1,0 +1,428 @@
+99346242582918
+Joels KiCad Footprint Library
+AM26C31CN
+
+
+0
+16
+16
+Joels KiCad Footprint Library
+ATSAMD21E17_32Pin_TQFP
+
+
+0
+32
+32
+Joels KiCad Footprint Library
+ATSAMD21E18A-AF
+
+
+0
+32
+32
+Joels KiCad Footprint Library
+Adafruit_CP2104_Friend
+Through hole straight pin header, 2x08, 2.54mm pitch, double rows
+Through hole pin header THT 2x08 2.54mm double row
+0
+16
+16
+Joels KiCad Footprint Library
+Adafruit_OLED_128x32_0.91in_I2C
+Through hole straight pin header, 1x06, 2.54mm pitch, single row
+Through hole pin header THT 1x06 2.54mm single row
+0
+6
+6
+Joels KiCad Footprint Library
+Adafruit_Quad_Alnum_Feather
+
+
+0
+24
+4
+Joels KiCad Footprint Library
+BatteryHolder_Keystone_3034_Minimum_Pad
+Keystone 3034 SMD battery holder for 2020, 2025 and 2032 coincell batteries. http://www.keyelco.com/product-pdf.cfm?p=798
+Keystone type 3034 coin cell retainer
+0
+7
+2
+Joels KiCad Footprint Library
+BatteryHolder_Keystone_3034_Pos_Clip
+Keystone 3034 SMD battery holder for 2020, 2025 and 2032 coincell batteries. http://www.keyelco.com/product-pdf.cfm?p=798
+Keystone type 3034 coin cell retainer
+0
+2
+1
+Joels KiCad Footprint Library
+CK-JS102011JAQN-0-0-MFG
+
+
+0
+6
+3
+Joels KiCad Footprint Library
+CK-JS202011JCQN
+
+
+0
+6
+6
+Joels KiCad Footprint Library
+CNC_3220-10-0300-00_SWD_Receptacle
+surface-mounted straight pin header, 2x05, 1.27mm pitch, double rows
+Surface mounted pin header SMD 2x05 1.27mm double row
+0
+10
+10
+Joels KiCad Footprint Library
+CUI_term_block_4_CUI_TB004-508-04BE
+
+
+0
+4
+4
+Joels KiCad Footprint Library
+CUI_term_block_8_TB004-508-08BE
+
+
+0
+8
+8
+Joels KiCad Footprint Library
+DIP-38_799
+
+
+0
+38
+38
+Joels KiCad Footprint Library
+Debug_Pad_01x03
+surface-mounted straight socket strip, 2x05, 2.54mm pitch, double cols (from Kicad 4.0.7), script generated
+Surface mounted socket strip SMD 2x05 2.54mm double row
+0
+3
+3
+Joels KiCad Footprint Library
+Debug_Pad_02x05
+surface-mounted straight socket strip, 2x05, 2.54mm pitch, double cols (from Kicad 4.0.7), script generated
+Surface mounted socket strip SMD 2x05 2.54mm double row
+0
+10
+10
+Joels KiCad Footprint Library
+Diodes-SO-8
+SO, 8 Pin (https://www.nxp.com/docs/en/data-sheet/PCF8523.pdf), generated with kicad-footprint-generator ipc_gullwing_generator.py
+SO SO
+0
+8
+8
+Joels KiCad Footprint Library
+ESP32-C3-MINI-1
+ESP32-C3-MINI-1-H4-1
+Integrated Circuit
+0
+61
+61
+Joels KiCad Footprint Library
+JCLPCB_Tooling_Hole
+Mounting Hole 2.5mm
+mounting hole 2.5mm
+0
+0
+0
+Joels KiCad Footprint Library
+JSTZH6
+
+
+0
+6
+6
+Joels KiCad Footprint Library
+Keystone_2992_Negative_Contact_Pad
+Keystone Coin Cell SM Negative Pad
+resistor
+0
+4
+1
+Joels KiCad Footprint Library
+LED_0603_For_Blinky
+LED SMD 0603 (1608 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: http://www.tortai-tech.com/upload/download/2011102023233369053.pdf), generated with kicad-footprint-generator
+LED
+0
+2
+2
+Joels KiCad Footprint Library
+LED_SMD_2835
+LED SMD 2010 (5025 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: http://www.tortai-tech.com/upload/download/2011102023233369053.pdf), generated with kicad-footprint-generator
+LED
+0
+2
+2
+Joels KiCad Footprint Library
+LED_WS2812-2020
+
+
+0
+4
+4
+Joels KiCad Footprint Library
+MIC5225-SOT23-5LD
+
+
+0
+5
+5
+Joels KiCad Footprint Library
+Max485-Module
+
+
+0
+8
+8
+Joels KiCad Footprint Library
+Mouse_Bite_5mm_Wide
+
+
+0
+0
+0
+Joels KiCad Footprint Library
+Mouse_Bite_For_Clipper
+
+
+0
+0
+0
+Joels KiCad Footprint Library
+NXP-TO-236AB-0-0-0
+
+
+0
+6
+3
+Joels KiCad Footprint Library
+PTS526_SK15_SMTR2_LFS
+
+
+0
+4
+4
+Joels KiCad Footprint Library
+PTS526_SK15_SMTR2_LFS_Tactile_SW_5.2x5.2
+
+
+0
+4
+4
+Joels KiCad Footprint Library
+QFN50P500X500X100-33N-D
+32 pin QFN
+Integrated Circuit
+0
+33
+33
+Joels KiCad Footprint Library
+RJ45-ASSMANN_A-2004-1-4-LP-N-R
+
+
+0
+10
+10
+Joels KiCad Footprint Library
+SCREW_02x04
+
+
+0
+8
+8
+Joels KiCad Footprint Library
+SN74AHCT125N
+
+
+0
+14
+14
+Joels KiCad Footprint Library
+SOIC_clipProgSmall
+
+
+0
+8
+8
+Joels KiCad Footprint Library
+SpaceControllerLogo
+
+
+0
+0
+0
+Joels KiCad Footprint Library
+TAG-CONNECT_TC2050-IDC
+
+
+0
+10
+10
+Joels KiCad Footprint Library
+TE_5569262-1_08_Port_RJ45
+
+
+0
+70
+70
+Joels KiCad Footprint Library
+TE_5569264-1_16_Port_RJ45
+
+
+0
+134
+134
+Joels KiCad Footprint Library
+TL9320AF400QG
+
+
+0
+2
+2
+Joels KiCad Footprint Library
+TSOP36438TT
+TSOP36438TT-2
+Integrated Circuit
+0
+4
+4
+Joels KiCad Footprint Library
+TSOP75438WTT
+
+
+0
+4
+4
+Joels KiCad Footprint Library
+Teensy4.0_Audioshield_RevD
+
+
+0
+45
+43
+Joels KiCad Footprint Library
+Teensy30_31_32_LC
+
+
+0
+39
+38
+Joels KiCad Footprint Library
+Teensy41
+
+
+0
+67
+67
+Joels KiCad Footprint Library
+Teensy41_Minimal
+
+
+0
+48
+48
+Joels KiCad Footprint Library
+TerminalBlock_1x08_Double
+terminal block Metz Connect Type086_RT03406HBLC, 6 pins, pitch 3.81mm, size 22.8x7.3mm^2, drill diamater 0.7mm, pad diameter 1.4mm, see http://www.metz-connect.com/de/system/files/productfiles/Datenblatt_310861_RT034xxHBLC_OFF-026114K.pdf, script-generated using https://github.com/pointhi/kicad-footprint-generator/scripts/TerminalBlock_MetzConnect
+THT terminal block Metz Connect Type086_RT03406HBLC pitch 3.81mm size 22.8x7.3mm^2 drill 0.7mm pad 1.4mm
+0
+16
+13
+Joels KiCad Footprint Library
+TerminalBlock_OnShore_1x02_P3.81mm_Horizontal
+terminal block Metz Connect Type086_RT03402HBLC, 2 pins, pitch 3.81mm, size 7.51x7.3mm^2, drill diamater 0.7mm, pad diameter 1.4mm, see http://www.metz-connect.com/de/system/files/productfiles/Datenblatt_310861_RT034xxHBLC_OFF-026114K.pdf, script-generated using https://github.com/pointhi/kicad-footprint-generator/scripts/TerminalBlock_MetzConnect
+THT terminal block Metz Connect Type086_RT03402HBLC pitch 3.81mm size 7.51x7.3mm^2 drill 0.7mm pad 1.4mm
+0
+2
+2
+Joels KiCad Footprint Library
+TerminalBlock_OnShore_1x03_P2.54mm
+TERM BLK 3P SIDE ENT 2.54MM PCB
+
+0
+3
+3
+Joels KiCad Footprint Library
+TerminalBlock_OnShore_1x03_P3.81mm_Horizontal
+terminal block Metz Connect Type086_RT03403HBLC, 3 pins, pitch 3.81mm, size 11.3x7.3mm^2, drill diamater 0.7mm, pad diameter 1.4mm, see http://www.metz-connect.com/de/system/files/productfiles/Datenblatt_310861_RT034xxHBLC_OFF-026114K.pdf, script-generated using https://github.com/pointhi/kicad-footprint-generator/scripts/TerminalBlock_MetzConnect
+THT terminal block Metz Connect Type086_RT03403HBLC pitch 3.81mm size 11.3x7.3mm^2 drill 0.7mm pad 1.4mm
+0
+3
+3
+Joels KiCad Footprint Library
+TerminalBlock_OnShore_1x04_P3.81mm_Horizontal
+terminal block Metz Connect Type086_RT03404HBLC, 4 pins, pitch 3.81mm, size 15.1x7.3mm^2, drill diamater 0.7mm, pad diameter 1.4mm, see http://www.metz-connect.com/de/system/files/productfiles/Datenblatt_310861_RT034xxHBLC_OFF-026114K.pdf, script-generated using https://github.com/pointhi/kicad-footprint-generator/scripts/TerminalBlock_MetzConnect
+THT terminal block Metz Connect Type086_RT03404HBLC pitch 3.81mm size 15.1x7.3mm^2 drill 0.7mm pad 1.4mm
+0
+4
+4
+Joels KiCad Footprint Library
+TerminalBlock_OnShore_1x06_P3.81mm_Horizontal
+terminal block Metz Connect Type086_RT03406HBLC, 6 pins, pitch 3.81mm, size 22.8x7.3mm^2, drill diamater 0.7mm, pad diameter 1.4mm, see http://www.metz-connect.com/de/system/files/productfiles/Datenblatt_310861_RT034xxHBLC_OFF-026114K.pdf, script-generated using https://github.com/pointhi/kicad-footprint-generator/scripts/TerminalBlock_MetzConnect
+THT terminal block Metz Connect Type086_RT03406HBLC pitch 3.81mm size 22.8x7.3mm^2 drill 0.7mm pad 1.4mm
+0
+6
+6
+Joels KiCad Footprint Library
+UFOsmall
+
+
+0
+0
+0
+Joels KiCad Footprint Library
+WAGO-2604-1304
+
+
+0
+8
+8
+Joels KiCad Footprint Library
+WAGO-2604-1308
+
+
+0
+16
+16
+Joels KiCad Footprint Library
+WIZ850io
+WIZ850io-7
+Integrated Circuit
+0
+12
+12
+Joels KiCad Footprint Library
+WS2811
+
+
+0
+8
+8
+Joels KiCad Footprint Library
+logo-future
+
+
+0
+0
+0
+Joels KiCad Footprint Library
+logo-turtles
+
+
+0
+0
+0
+Joels KiCad Footprint Library
+mouse-bite-5mm-slot
+
+
+0
+0
+0
