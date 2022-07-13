@@ -19,8 +19,8 @@ namespace Led
       3, 4, 25,   // ANT - South - Bottom to Top
       26, 29, 30, // ANT - West - Bottom to Top
 
-      32, 35, 36, 39, 40, 22, // WHIPS - Left - Center out
-      33, 34, 37, 38, 41, 14, // WHIPS - Right - Center out
+      32, 35, 36, 39, 40, 22, // WHIPS - Left - Right
+      33, 34, 37, 38, 41, 14, // WHIPS continued
   };
 
   const int ledsPerStrip = 300;
@@ -42,108 +42,130 @@ namespace Led
   {
     octo.begin();
     pcontroller = new CTeensy4Controller<RGB, WS2811_800kHz>(&octo);
-
-    FastLED.setBrightness(255);
+    FastLED.setBrightness(255); // we do our own dimming
 
     // FastLED.setCorrection(TypicalLEDStrip);
     // FastLED.setTemperature(DirectSunlight);
     FastLED.setDither(0);
-
     FastLED.addLeds(pcontroller, pixels, numPins * ledsPerStrip);
   }
 
-  void setPixelColor(int ixStrip, int ixPosition, CRGB rgb)
+  //
+  // USEFUL PIXEL-MAPPING UTILITY FUNCTIONS
+  //
+
+  void setPixelColor(int ixStrip, int ixPosition, CRGB rgb, uint8_t brightness)
   {
-    pixels[ixStrip * ledsPerStrip + ixPosition] = rgb % g_brightnessAntennas;
+    pixels[ixStrip * ledsPerStrip + ixPosition] = rgb % brightness;
   }
 
-  static uint8_t test_hue = 0;
-
-  void testPattern(uint8_t leftPeak, uint8_t rightPeak)
+  // set a pixel on the antenna; 0 is the bottom, 899 is the top.
+  // Specify a direction 0 - 3 or leave out for all sides
+  void setAntennaPixel(uint16_t pixel, CRGB rgb, int oneDirection = 4)
   {
-    // Antenna tests
-    for (int ixStrip = 0; ixStrip <= 11; ixStrip++)
+    for (int direction = 0; direction < 4; direction++)
     {
-      // Set background colors to indicate direction
-      for (int ixPosition = 0; ixPosition < 300; ixPosition++)
-      {
-        CRGB rgb = CRGB::Black;
+      if (oneDirection == 4 || oneDirection == direction)
+        setPixelColor(pixel / 300 + 3 * direction, pixel % 300, rgb, g_brightnessAntennas);
+    }
+  }
 
-        switch (ixStrip)
-        {
-        case 0:
-        case 1:
-        case 2:
-          rgb = CRGB::Red;
-          break; // RED NORTH
+  // set a pixel on the whips; 0 is the bottom, 110 is the top.
+  // Specify a whip 0 - 11 or leave out for all whips
+  void setWhipPixel(uint16_t pixel, CRGB rgb, int oneWhip = 12)
+  {
+    for (int whip = 0; whip < 12; whip++)
+    {
+      if (oneWhip == 12 || oneWhip == whip)
+        setPixelColor(whip + 12, pixel, rgb, g_brightnessWhips);
+    }
+  }
 
-        case 3:
-        case 4:
-        case 5:
-          rgb = CRGB::Green;
-          break; // GREEN EAST
+  void antennaTestPattern()
+  {
+    static uint8_t test_hue = 0;
 
-        case 6:
-        case 7:
-        case 8:
-          rgb = CRGB::Blue;
-          break; // BLUE SOUTH
-
-        default:
-          rgb = CRGB(0x65, 0x43, 0x21);
-          break; // ORANGE WEST
-        }
-
-        // ALTERNATELY - test strips by going R, G, B
-        EVERY_N_MILLISECONDS(15)
-        {
-          test_hue = (test_hue + 1) % 255;
-        }
-
-        setPixelColor(ixStrip, ixPosition, CHSV(test_hue, 255, 255));
-      }
-
-      // indicate strip number by turning off some LEDs:
-      // for (int ixPosition = 0; ixPosition < 300; ixPosition += (ixStrip + 2))
-      //  setPixelColor(ixStrip, ixPosition, CRGB::Black);
+    EVERY_N_MILLISECONDS(10)
+    {
+      test_hue = (test_hue + 1) % 255;
     }
 
-    // Whip tests
-    for (int ixStrip = 0; ixStrip < 12; ixStrip++)
+    uint16_t height = (millis() % 1000) * 9 / 10;
+
+    for (uint16_t i = 0; i < 900; i++)
     {
-      // left channel audio
-      if (ixStrip < 6)
-      {
-        uint8_t leftPeak_inv = 6 - leftPeak;
-        if (ixStrip < leftPeak_inv)
-        {
-          for (int ixPosition = 0; ixPosition < 110; ixPosition++)
-            setPixelColor(ixStrip + 12, ixPosition, CRGB::Black);
-        }
-        else
-        {
-          for (int ixPosition = 0; ixPosition < 110; ixPosition++)
-            setPixelColor(ixStrip + 12, ixPosition, CRGB(CHSV(((ixStrip - 12) * 20), 255, 255)));
-        }
-      }
-      // right channel
+      if (i > height)
+        setAntennaPixel(i, CRGB::Black);
       else
-      {
-        if (ixStrip - 5 > rightPeak)
-        {
-          for (int ixPosition = 0; ixPosition < 110; ixPosition++)
-            setPixelColor(ixStrip + 12, ixPosition, CRGB::Black);
-        }
-        else
-        {
-          for (int ixPosition = 0; ixPosition < 110; ixPosition++)
-            setPixelColor(ixStrip + 12, ixPosition, CRGB(CHSV(((ixStrip - 12) * 20), 255, 255)));
-        }
-      }
+        setAntennaPixel(i, CHSV(test_hue, 255, 255));
+    }
+  }
+
+  void whipTestPattern()
+  {
+    static uint8_t test_hue = 0;
+    static uint8_t test_whip = 0;
+
+    EVERY_N_MILLISECONDS(10)
+    {
+      test_hue = (test_hue + 1) % 255;
     }
 
-    FastLED.show();
+    EVERY_N_SECONDS(1)
+    {
+      test_whip = (test_whip + 1) % 13;
+    }
+
+    uint16_t height = (millis() % 1000) * 110 / 1000;
+
+    for (uint16_t i = 0; i < 110; i++)
+    {
+      if (i > height)
+        setWhipPixel(i, CRGB::Black, test_whip);
+      else
+        setWhipPixel(i, CHSV(test_hue, 255, 255), test_whip);
+    }
   }
+
+  // void whipTestPatternAudio(uint8_t leftPeak, uint8_t rightPeak)
+  // {
+
+  //   // Whip tests
+  //   for (int ixStrip = 0; ixStrip < 12; ixStrip++)
+  //   {
+  //     // left channel audio
+  //     if (ixStrip < 6)
+  //     {
+  //       uint8_t leftPeak_inv = 6 - leftPeak;
+  //       if (ixStrip < leftPeak_inv)
+  //       {
+  //         for (int ixPosition = 0; ixPosition < 110; ixPosition++)
+  //           setPixelColor(ixStrip + 12, ixPosition, CRGB::Black);
+  //       }
+  //       else
+  //       {
+  //         for (int ixPosition = 0; ixPosition < 110; ixPosition++)
+  //           setPixelColor(ixStrip + 12, ixPosition, CRGB(CHSV(((ixStrip - 12) * 20), 255, 255)));
+  //       }
+  //     }
+  //     // right channel
+  //     else
+  //     {
+  //       if (ixStrip - 5 > rightPeak)
+  //       {
+  //         for (int ixPosition = 0; ixPosition < 110; ixPosition++)
+  //           setPixelColor(ixStrip + 12, ixPosition, CRGB::Black);
+  //       }
+  //       else
+  //       {
+  //         for (int ixPosition = 0; ixPosition < 110; ixPosition++)
+  //           setPixelColor(ixStrip + 12, ixPosition, CRGB(CHSV(((ixStrip - 12) * 20), 255, 255)));
+  //       }
+  //     }
+  //   }
+
+  //   FastLED.show();
+  // }
 
   // top level LED show.
   void loop(uint8_t brightnessWhips,
@@ -153,6 +175,9 @@ namespace Led
     g_brightnessWhips = brightnessWhips;
     g_brightnessAntennas = brightnessAntennas;
 
-    testPattern(leftPeak, rightPeak);
+    antennaTestPattern();
+    whipTestPattern(/*leftPeak, rightPeak*/);
+
+    FastLED.show();
   }
 };
