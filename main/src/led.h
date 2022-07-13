@@ -5,6 +5,10 @@
 namespace Led
 {
     void setup();
-    void loop(uint8_t leftPeak, uint8_t rightPeak);
+    void loop(
+        uint8_t brightnessWhips,
+        uint8_t brightnessAntennas,
+        uint8_t leftPeak,
+        uint8_t rightPeak);
 
 }; // namespace Led

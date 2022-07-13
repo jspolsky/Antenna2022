@@ -36,12 +36,14 @@ namespace Led
   OctoWS2811 octo(ledsPerStrip, displayMemory, drawingMemory, WS2811_RGB | WS2811_800kHz, numPins, pinList);
   CTeensy4Controller<RGB, WS2811_800kHz> *pcontroller;
 
+  uint8_t g_brightnessWhips = 0, g_brightnessAntennas = 0;
+
   void setup()
   {
     octo.begin();
     pcontroller = new CTeensy4Controller<RGB, WS2811_800kHz>(&octo);
 
-    FastLED.setBrightness(160);
+    FastLED.setBrightness(255);
 
     // FastLED.setCorrection(TypicalLEDStrip);
     // FastLED.setTemperature(DirectSunlight);
@@ -51,10 +53,10 @@ namespace Led
 
   void setPixelColor(int ixStrip, int ixPosition, CRGB rgb)
   {
-    pixels[ixStrip * ledsPerStrip + ixPosition] = rgb;
+    pixels[ixStrip * ledsPerStrip + ixPosition] = rgb % g_brightnessAntennas;
   }
 
-  static uint8_t test_color = 0;
+  static uint8_t test_hue = 0;
 
   void testPattern(uint8_t leftPeak, uint8_t rightPeak)
   {
@@ -92,26 +94,12 @@ namespace Led
         }
 
         // ALTERNATELY - test strips by going R, G, B
-        EVERY_N_SECONDS(1)
+        EVERY_N_MILLISECONDS(25)
         {
-          test_color = (test_color + 1) % 3;
-        }
-        switch (test_color)
-        {
-        case 0:
-          rgb = CRGB::Red;
-          break;
-
-        case 1:
-          rgb = CRGB::Green;
-          break;
-
-        default:
-          rgb = CRGB::Blue;
-          break;
+          test_hue = (test_hue + 16) % 255;
         }
 
-        setPixelColor(ixStrip, ixPosition, rgb);
+        setPixelColor(ixStrip, ixPosition, CHSV(test_hue, 255, 255));
       }
 
       // indicate strip number by turning off some LEDs:
@@ -156,8 +144,14 @@ namespace Led
     FastLED.show();
   }
 
-  void loop(uint8_t leftPeak, uint8_t rightPeak)
+  // top level LED show.
+  void loop(uint8_t brightnessWhips,
+            uint8_t brightnessAntennas,
+            uint8_t leftPeak, uint8_t rightPeak)
   {
+    g_brightnessWhips = brightnessWhips;
+    g_brightnessAntennas = brightnessAntennas;
+
     testPattern(leftPeak, rightPeak);
   }
 };
