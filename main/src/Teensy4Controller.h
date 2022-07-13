@@ -1,6 +1,7 @@
 #pragma once
 
 #include <OctoWS2811.h>
+#define FASTLED_INTERNAL
 #include <FastLED.h>
 #include <Arduino.h>
 #include <Util.h>
