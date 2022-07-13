@@ -16,9 +16,9 @@ namespace Brightness
     }
 
     // determine the current brightness settings 0-255
-    void loop(uint8_t *brightnessWhips, uint8_t *brightnessAntennas)
+    void loop(uint8_t *pbrightnessWhips, uint8_t *pbrightnessAntennas)
     {
-        *brightnessWhips = min(160, analogRead(pinWhips) / 4);
-        *brightnessAntennas = min(160, analogRead(pinAntennas) / 4);
+        *pbrightnessWhips = max(8, min(160, analogRead(pinWhips) / 4));
+        *pbrightnessAntennas = max(8, min(160, analogRead(pinAntennas) / 4));
     }
 }

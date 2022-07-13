@@ -47,6 +47,7 @@ namespace Led
 
     // FastLED.setCorrection(TypicalLEDStrip);
     // FastLED.setTemperature(DirectSunlight);
+    FastLED.setDither(0);
 
     FastLED.addLeds(pcontroller, pixels, numPins * ledsPerStrip);
   }
@@ -94,9 +95,9 @@ namespace Led
         }
 
         // ALTERNATELY - test strips by going R, G, B
-        EVERY_N_MILLISECONDS(25)
+        EVERY_N_MILLISECONDS(15)
         {
-          test_hue = (test_hue + 16) % 255;
+          test_hue = (test_hue + 1) % 255;
         }
 
         setPixelColor(ixStrip, ixPosition, CHSV(test_hue, 255, 255));
