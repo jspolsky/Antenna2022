@@ -4,6 +4,7 @@
 #include "brightness.h"
 #include "led.h"
 #include "audioshow.h"
+#include "controller.h"
 
 void setup()
 {
@@ -11,9 +12,7 @@ void setup()
   Brightness::setup();
   Led::setup();
   Audioshow::setup();
-
-  Serial1.begin(500000);
-  dbgprintf("receiver ready\n");
+  Controller::setup();
 }
 
 void loop()
@@ -23,13 +22,11 @@ void loop()
 
   uint8_t brightnessWhips, brightnessAntennas;
   Brightness::loop(&brightnessWhips, &brightnessAntennas);
-  Led::loop(brightnessWhips, brightnessAntennas,
-            Audioshow::leftPeak, Audioshow::rightPeak);
 
-  int incoming_byte = 0;
-  if (Serial1.available() > 0)
-  {
-    incoming_byte = Serial1.read();
-    dbgprintf("Serial read: %x\n", incoming_byte);
-  }
+  bool *colorStates = Controller::loop();
+  Led::loop(colorStates,
+            brightnessWhips,
+            brightnessAntennas,
+            Audioshow::leftPeak,
+            Audioshow::rightPeak);
 }

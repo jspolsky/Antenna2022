@@ -38,6 +38,10 @@ namespace Led
 
   uint8_t g_brightnessWhips = 0, g_brightnessAntennas = 0;
 
+  // These are the 8 solid colors you can punch up using the buttons on the controller:
+  byte hues[8] = {8, 136, 79, 192, 0, 242, 48, 178};
+  byte saturations[8] = {255, 255, 255, 255, 255, 192, 255, 255};
+
   void setup()
   {
     octo.begin();
@@ -98,6 +102,14 @@ namespace Led
         setAntennaPixel(i, CRGB::Black);
       else
         setAntennaPixel(i, CHSV(test_hue, 255, 255));
+    }
+  }
+
+  void antennaSolidColor(CRGB rgb)
+  {
+    for (uint16_t i = 0; i < 900; i++)
+    {
+      setAntennaPixel(i, rgb);
     }
   }
 
@@ -168,14 +180,30 @@ namespace Led
   // }
 
   // top level LED show.
-  void loop(uint8_t brightnessWhips,
-            uint8_t brightnessAntennas,
-            uint8_t leftPeak, uint8_t rightPeak)
+  void loop(
+      bool *colorStates,
+      uint8_t brightnessWhips,
+      uint8_t brightnessAntennas,
+      uint8_t leftPeak,
+      uint8_t rightPeak)
   {
     g_brightnessWhips = brightnessWhips;
     g_brightnessAntennas = brightnessAntennas;
 
-    antennaTestPattern();
+    // Are any buttons pressed on the controller?
+    bool solidColorButtons = false;
+    for (int i = 0; i < 8; i++)
+    {
+      if (colorStates[i])
+      {
+        solidColorButtons = true;
+        antennaSolidColor(CHSV(hues[i], saturations[i], 255));
+        break;
+      }
+    }
+
+    if (!solidColorButtons)
+      antennaTestPattern();
     whipTestPattern(/*leftPeak, rightPeak*/);
 
     FastLED.show();
