@@ -19,7 +19,7 @@ void setup()
   }
 
   // dbgprintf("Ready\n");
-  // Serial1.begin(500000);
+  Serial1.begin(500000);
 
   Led::setup();
 }
