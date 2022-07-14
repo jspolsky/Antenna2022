@@ -19,6 +19,9 @@ namespace Led
       24,
   };
 
+  byte hues[8] = {8, 136, 79, 192, 0, 242, 48, 178};
+  byte saturations[8] = {255, 255, 255, 255, 255, 192, 255, 255};
+
   const int ledsPerStrip = 16;
   CRGB pixels[numPins * ledsPerStrip];
 
@@ -47,10 +50,9 @@ namespace Led
 
   void loop()
   {
-    int litbutton = (millis() / 250) % 16;
-    for (int i = 0; i < 16; i++)
+    for (int i = 0; i < 8; i++)
     {
-      pixels[i] = litbutton >= i ? CRGB(CHSV(i * 16, 255, 255)) : CRGB::Black;
+      pixels[i] = CHSV(hues[i], saturations[i], 255);
     }
 
     FastLED.show();

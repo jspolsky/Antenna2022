@@ -18,8 +18,8 @@ void setup()
     rgbounce[pin - pinStart].interval(5);
   }
 
-  dbgprintf("Ready\n");
-  Serial1.begin(500000);
+  // dbgprintf("Ready\n");
+  // Serial1.begin(500000);
 
   Led::setup();
 }
