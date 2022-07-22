@@ -2,9 +2,9 @@
 
 #include "Util.h"
 #include "brightness.h"
+#include "controller.h"
 #include "led.h"
 #include "audioshow.h"
-#include "controller.h"
 
 void setup()
 {
@@ -23,8 +23,8 @@ void loop()
   uint8_t brightnessWhips, brightnessAntennas;
   Brightness::loop(&brightnessWhips, &brightnessAntennas);
 
-  bool *colorStates = Controller::loop();
-  Led::loop(colorStates,
+  Controller::ButtonState *pbuttonState = Controller::loop();
+  Led::loop(pbuttonState,
             brightnessWhips,
             brightnessAntennas,
             Audioshow::leftPeak,

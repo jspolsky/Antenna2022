@@ -3,6 +3,7 @@
 #include <OctoWS2811.h>
 #include "Teensy4Controller.h"
 #include "Util.h"
+#include "controller.h"
 #include "led.h"
 
 namespace Led
@@ -37,10 +38,6 @@ namespace Led
   CTeensy4Controller<RGB, WS2811_800kHz> *pcontroller;
 
   uint8_t g_brightnessWhips = 0, g_brightnessAntennas = 0;
-
-  // These are the 8 solid colors you can punch up using the buttons on the controller:
-  byte hues[8] = {8, 136, 79, 192, 0, 242, 48, 178};
-  byte saturations[8] = {255, 255, 255, 255, 255, 192, 255, 255};
 
   void setup()
   {
@@ -113,12 +110,47 @@ namespace Led
     }
   }
 
+  void whipSolidColor(CRGB rgb, int oneWhip = 12)
+  {
+    for (uint16_t i = 0; i < 110; i++)
+    {
+      setWhipPixel(i, rgb, oneWhip);
+    }
+  }
+
+  // Some solid color buttons are being pressed; show those colors
+  //
+  void solidPattern(Controller::ButtonState *pbuttonState)
+  {
+    // the ANTENNA always goes solid with the first color
+    antennaSolidColor(pbuttonState->rgrgb[0]);
+
+    // only 1 color? The whips will join it!
+    if (pbuttonState->cColors == 1)
+    {
+      whipSolidColor(pbuttonState->rgrgb[0]);
+    }
+    else
+    {
+      int whichColor = 1;
+
+      // otherwise the whips get divided up among the remaining colors
+      for (int oneWhip = 0; oneWhip < 12; oneWhip++)
+      {
+        whipSolidColor(pbuttonState->rgrgb[whichColor], oneWhip);
+        whichColor++;
+        if (whichColor == pbuttonState->cColors)
+          whichColor = 1;
+      }
+    }
+  }
+
   void whipTestPattern()
   {
     static uint8_t test_hue = 0;
     static uint8_t test_whip = 0;
 
-    EVERY_N_MILLISECONDS(10)
+    EVERY_N_MILLISECONDS(100)
     {
       test_hue = (test_hue + 1) % 255;
     }
@@ -181,7 +213,7 @@ namespace Led
 
   // top level LED show.
   void loop(
-      bool *colorStates,
+      Controller::ButtonState *pbuttonState,
       uint8_t brightnessWhips,
       uint8_t brightnessAntennas,
       uint8_t leftPeak,
@@ -190,21 +222,18 @@ namespace Led
     g_brightnessWhips = brightnessWhips;
     g_brightnessAntennas = brightnessAntennas;
 
-    // Are any buttons pressed on the controller?
-    bool solidColorButtons = false;
-    for (int i = 0; i < 8; i++)
+    if (pbuttonState->cColors == 0)
     {
-      if (colorStates[i])
-      {
-        solidColorButtons = true;
-        antennaSolidColor(CHSV(hues[i], saturations[i], 255));
-        break;
-      }
-    }
 
-    if (!solidColorButtons)
+      // No solid colors pressed - just run the current animation
+
       antennaTestPattern();
-    whipTestPattern(/*leftPeak, rightPeak*/);
+      whipTestPattern(/*leftPeak, rightPeak*/);
+    }
+    else
+    {
+      solidPattern(pbuttonState);
+    }
 
     FastLED.show();
   }

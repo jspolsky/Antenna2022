@@ -6,7 +6,7 @@ namespace Led
 {
     void setup();
     void loop(
-        bool *colorStates,
+        Controller::ButtonState *pButtonState,
         uint8_t brightnessWhips,
         uint8_t brightnessAntennas,
         uint8_t leftPeak,
