@@ -38,6 +38,7 @@ namespace Led
   CTeensy4Controller<RGB, WS2811_800kHz> *pcontroller;
 
   uint8_t g_brightnessWhips = 0, g_brightnessAntennas = 0;
+  const int redBlinky = 891; // where the red blinking light for the top starts
 
   void setup()
   {
@@ -67,7 +68,7 @@ namespace Led
     for (int direction = 0; direction < 4; direction++)
     {
       if (oneDirection == 4 || oneDirection == direction)
-        setPixelColor(pixel / 300 + 3 * direction, pixel % 300, rgb, g_brightnessAntennas);
+        setPixelColor(pixel / 300 + 3 * direction, pixel % 300, rgb, pixel >= redBlinky ? 255 : g_brightnessAntennas);
     }
   }
 
@@ -211,6 +212,19 @@ namespace Led
   //   FastLED.show();
   // }
 
+  // antenna always has blinking red light at the top
+  // "for airplanes" but also so we can always find
+  // our way home, no matter what pattern is showing!
+
+  void antennaRedBlinky()
+  {
+    CRGB rgb = CRGB::Red;
+    rgb.fadeToBlackBy(beatsin8(45));
+
+    for (int i = redBlinky; i < 900; i++)
+      setAntennaPixel(i, rgb);
+  }
+
   // top level LED show.
   void loop(
       Controller::ButtonState *pbuttonState,
@@ -235,6 +249,7 @@ namespace Led
       solidPattern(pbuttonState);
     }
 
+    antennaRedBlinky();
     FastLED.show();
   }
 };
