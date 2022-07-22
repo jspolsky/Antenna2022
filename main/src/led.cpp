@@ -215,7 +215,6 @@ namespace Led
   // antenna always has blinking red light at the top
   // "for airplanes" but also so we can always find
   // our way home, no matter what pattern is showing!
-
   void antennaRedBlinky()
   {
     CRGB rgb = CRGB::Red;
@@ -223,6 +222,46 @@ namespace Led
 
     for (int i = redBlinky; i < 900; i++)
       setAntennaPixel(i, rgb);
+  }
+
+  // strongman animation
+  void carnivalWhoosh()
+  {
+    antennaSolidColor(CRGB::Black);
+    whipSolidColor(CRGB::Black);
+
+    const CRGB rgbWhooshColor = CRGB::White; // so artsy
+    const uint32_t msPerStepConverge = 250;
+    const uint32_t msConverge = 6 * msPerStepConverge;
+    const uint32_t msTimeInFlight = 3334;
+    const uint32_t msTimeRest = 500;
+    const uint32_t msTotalLength = msConverge + msTimeInFlight + msTimeRest; // how long this whole animation is
+    uint32_t msInCycle = millis() % msTotalLength;                           // how far we are into the current cycle
+    uint32_t msInCurrentStage = 0;
+
+    if (msInCycle < msConverge) // bands of light converge from outside in on the whips
+    {
+      msInCurrentStage = msInCycle;
+
+      uint8_t whip = msInCurrentStage / msPerStepConverge;
+      whipSolidColor(rgbWhooshColor, whip);
+      whipSolidColor(rgbWhooshColor, 11 - whip);
+    }
+    else if (msInCycle < msConverge + msTimeInFlight)
+    {
+      msInCurrentStage = msInCycle - msConverge;
+      double time = (msInCurrentStage / 1000.0);
+      const double gravity = 9.80665;
+      double metersHeight = 16.35 * time - gravity * time * time / 2.0;
+      uint32_t pixelsHeight = lround(metersHeight * 60.0);
+      const uint32_t slugHeightInPixels = 83; // to match the physical height of the whips in the antenna
+
+      for (int i = pixelsHeight; i < pixelsHeight + slugHeightInPixels; i++)
+      {
+        if (i < 900)
+          setAntennaPixel(i, rgbWhooshColor);
+      }
+    }
   }
 
   // top level LED show.
@@ -240,9 +279,7 @@ namespace Led
     {
 
       // No solid colors pressed - just run the current animation
-
-      antennaTestPattern();
-      whipTestPattern(/*leftPeak, rightPeak*/);
+      carnivalWhoosh();
     }
     else
     {
