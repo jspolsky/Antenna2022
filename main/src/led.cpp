@@ -370,8 +370,8 @@ namespace Led
         unit -= 12;
         uint32_t direction = unit % 4;
         unit /= 4;
-        uint32_t firstPixel = unit * 82;
-        for (uint32_t i = firstPixel; i < (firstPixel + 82) && i < 900; i++)
+        uint32_t firstPixel = unit * 81;
+        for (uint32_t i = firstPixel; i < (firstPixel + 81) && i < 900; i++)
         {
           setAntennaPixel(i, color, direction);
         }
@@ -409,6 +409,105 @@ namespace Led
     }
   }
 
+  // lgbtq flag
+  void lgbtq()
+  {
+    const uint32_t num_colors = 11;
+    static CRGB prideColors[num_colors] =
+        {
+            CRGB::Red,
+            CHSV(16, 255, 255),
+            CHSV(64, 255, 255),
+            CHSV(108, 255, 128),
+            CRGB::DarkBlue,
+            CHSV(198, 255, 128),
+            CRGB::White,
+            CHSV(224, 255, 255),
+            CHSV(144, 255, 255),
+            CHSV(16, 255, 96),
+            CRGB::Black,
+        };
+    const uint32_t millisPerCycle = 12000L;
+    const uint32_t millisToMoveIn = 6000L;
+
+    // what's on the antenna? Starting at the bottom
+
+    static uint8_t rgAntennaState[num_colors] = {
+        10,
+        9,
+        8,
+        7,
+        6,
+        5,
+        4,
+        3,
+        2,
+        1,
+        0,
+    };
+
+    static uint8_t nextColor = 10;
+    static uint32_t millisCycle = millis();
+    static bool bPushInIsOver = true;
+
+    // Every cycle, start moving the next color in
+    EVERY_N_MILLISECONDS(millisPerCycle)
+    {
+      nextColor = (nextColor + 1) % num_colors;
+      millisCycle = millis();
+      bPushInIsOver = false;
+    }
+
+    // show antenna
+    for (uint32_t i = 0; i < num_colors; i++)
+    {
+      for (uint32_t ixPixel = 81 * i; ixPixel < 81 * (i + 1) && ixPixel < 900; ixPixel++)
+      {
+        setAntennaPixel(ixPixel, prideColors[rgAntennaState[i]]);
+      }
+    }
+
+    // show whips
+    whipSolidColor(CRGB::Black);
+
+    uint32_t millisInCycle = millis() - millisCycle;
+    if (millisInCycle < millisToMoveIn)
+    {
+      // calculate the "position" of this color which is moving in over the course of 6 seconds
+      const double dStart = -0.3333; // start position
+      const double dEnd = 5.3333;    // end position
+      double dPosition = map((double)millisInCycle, 0.0, (double)millisToMoveIn, dStart, dEnd);
+
+      for (int whip = 0; whip < 6; whip++)
+      {
+        // how far is this whip from the "position"?
+        double dDistance = abs(dPosition - (double)whip);
+        if (dDistance < 0.8)
+        {
+          CRGB color = prideColors[nextColor];
+
+          uint8_t byteDistance = min(255, lround(dDistance * 375.0));
+          color.fadeLightBy(byteDistance);
+
+          whipSolidColor(color, whip);
+          whipSolidColor(color, 11 - whip);
+        }
+      }
+    }
+    else if (!bPushInIsOver)
+    {
+      // just go in here once at the end of millisToMoveIn
+      bPushInIsOver = true;
+
+      // rearrange the antenna!
+      for (uint32_t i = num_colors - 1; i > 0; i--)
+      {
+        rgAntennaState[i] = rgAntennaState[i - 1];
+      }
+      rgAntennaState[0] = nextColor;
+    }
+  }
+
   // top level LED show.
   void loop(
       Controller::ButtonState *pbuttonState,
@@ -424,8 +523,22 @@ namespace Led
     {
 
       // No solid colors pressed - just run the current animation
-      // carnivalWhoosh();
-      monochromeBasic();
+
+      switch (pbuttonState->animation)
+      {
+      case 2:
+        carnivalWhoosh();
+        break;
+
+      case 1:
+        monochromeBasic();
+        break;
+
+      case 0:
+      default:
+        lgbtq();
+        break;
+      }
     }
     else
     {

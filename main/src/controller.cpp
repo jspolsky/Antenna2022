@@ -23,7 +23,8 @@ namespace Controller
         0,
         {0, 0, 0, 0, 0, 0, 0, 0},
         {CRGB::Black, CRGB::Black, CRGB::Black, CRGB::Black,
-         CRGB::Black, CRGB::Black, CRGB::Black, CRGB::Black}};
+         CRGB::Black, CRGB::Black, CRGB::Black, CRGB::Black},
+        0};
 
     void setup()
     {
@@ -39,14 +40,14 @@ namespace Controller
             incoming_byte = Serial1.read();
             // dbgprintf("Serial read: %x\n", incoming_byte);
 
-            if ((incoming_byte & 0xF) < 8)
+            uint8_t whichButton = incoming_byte & 0xF;
+            bool bButtonDown = (incoming_byte & 0x10) ? 1 : 0;
+
+            if (whichButton < 8)
             {
                 // This is a little complicated because we have to maintain
                 // an ordered list of all the buttons that are still pressed, in
                 // the chronological order they were pressed
-
-                uint8_t whichButton = incoming_byte & 0xF;
-                bool bButtonDown = (incoming_byte & 0x10) ? 1 : 0;
 
                 if (bButtonDown)
                 {
@@ -76,6 +77,13 @@ namespace Controller
                     buttonState.rgrgb[i] = CHSV(hues[buttonState.rgbuttons[i]],
                                                 saturations[buttonState.rgbuttons[i]],
                                                 255);
+                }
+            }
+            else
+            {
+                if (bButtonDown)
+                {
+                    buttonState.animation = whichButton - 8;
                 }
             }
         }
