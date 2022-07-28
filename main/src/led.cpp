@@ -256,10 +256,155 @@ namespace Led
       uint32_t pixelsHeight = lround(metersHeight * 60.0);
       const uint32_t slugHeightInPixels = 83; // to match the physical height of the whips in the antenna
 
-      for (int i = pixelsHeight; i < pixelsHeight + slugHeightInPixels; i++)
+      for (uint32_t i = pixelsHeight; i < pixelsHeight + slugHeightInPixels; i++)
       {
         if (i < 900)
           setAntennaPixel(i, rgbWhooshColor);
+      }
+    }
+  }
+
+  // monochrome basic animation
+  void monochromeBasic()
+  {
+    static bool initialSetup = false; // true when we set up the first time
+
+    // there are 56 units
+    //    0 - 11 are whips
+    //    12 - 55 are segments on the antenna (each direction is separate)
+    const uint32_t cUnits = 56;
+    const uint32_t cUnitsOnAtATime = 17;
+    const uint32_t millisRampTime = 200;     // how many ms it takes to warm up
+    const uint32_t millisRampDownTime = 400; // how many ms it takes to fade down to black
+
+    static uint32_t millisCycle = millis();
+
+    // each unit is:
+    //    off -- just keep it off
+    //    on -- just keep it on
+    //    going off -- ramp down for 500 ms then off
+    //    going on -- ramp up for 50ms then on
+    enum Mode
+    {
+      ModeOff,
+      ModeOn,
+      ModeGoingOff,
+      ModeGoingOn
+    };
+
+    static Mode rgmode[cUnits];
+
+    auto findRandomUnitMatching = [&](Mode modeMatch)
+    {
+      int32_t iRandom = random(0, cUnits);
+      while (rgmode[iRandom] != modeMatch)
+      {
+        iRandom = (iRandom + 1) % cUnits;
+      }
+      return iRandom;
+    };
+
+    auto dbgprintModes = [&]()
+    {
+      for (uint32_t i = 0; i < cUnits; i++)
+      {
+        dbgprintf("%d", rgmode[i]);
+      }
+      dbgprintf("\n");
+    };
+
+    if (!initialSetup)
+    {
+
+      for (uint32_t ix = 0; ix < cUnits; ix++)
+        rgmode[ix] = ModeOff;
+
+      // to start:
+      //    pick 17 at random and turn them on. Everything else is off
+      for (uint32_t c = 0; c < cUnitsOnAtATime; c++)
+      {
+        rgmode[findRandomUnitMatching(ModeOff)] = ModeGoingOn;
+      };
+
+      initialSetup = true;
+    }
+
+    EVERY_N_SECONDS(3)
+    {
+      millisCycle = millis();
+
+      // every 3 seconds:
+      //    find all "going on" and change them to on
+      //    find all "going off" and change them to off
+      for (uint32_t i = 0; i < cUnits; i++)
+      {
+        if (rgmode[i] == ModeGoingOff)
+          rgmode[i] = ModeOff;
+        else if (rgmode[i] == ModeGoingOn)
+          rgmode[i] = ModeOn;
+      }
+
+      dbgprintModes();
+
+      //    pick 7 at random that are OFF and change them to going on
+      //    pick 7 at random that are ON and change them to going off
+      for (uint32_t c = 0; c < 7; c++)
+      {
+        rgmode[findRandomUnitMatching(ModeOff)] = ModeGoingOn;
+        rgmode[findRandomUnitMatching(ModeOn)] = ModeGoingOff;
+      }
+    }
+
+    // Ok, enough beating around the bush, let's turn on some LEDs
+    antennaSolidColor(CRGB::Black);
+    whipSolidColor(CRGB::Black);
+
+    auto setUnitColor = [](CRGB color, uint32_t unit)
+    {
+      if (unit < 12)
+      {
+        whipSolidColor(color, unit);
+      }
+      else
+      {
+        unit -= 12;
+        uint32_t direction = unit % 4;
+        unit /= 4;
+        uint32_t firstPixel = unit * 82;
+        for (uint32_t i = firstPixel; i < (firstPixel + 82) && i < 900; i++)
+        {
+          setAntennaPixel(i, color, direction);
+        }
+      }
+    };
+
+    for (uint32_t i = 0; i < cUnits; i++)
+    {
+      if (rgmode[i] == ModeOn)
+      {
+        setUnitColor(CRGB::Blue, i);
+      }
+      else if (rgmode[i] == ModeGoingOn)
+      {
+        uint32_t millisSinceCycle = millis() - millisCycle;
+        if (millisSinceCycle < millisRampTime)
+        {
+          CRGB color = CRGB::Blue;
+          color.fadeToBlackBy(map(millisSinceCycle, 0, millisRampTime, 255, 0));
+          setUnitColor(color, i);
+        }
+        else
+          setUnitColor(CRGB::Blue, i);
+      }
+      else if (rgmode[i] == ModeGoingOff)
+      {
+        uint32_t millisSinceCycle = millis() - millisCycle;
+        if (millisSinceCycle < millisRampDownTime)
+        {
+          CRGB color = CRGB::Blue;
+          color.fadeToBlackBy(map(millisSinceCycle, 0, millisRampDownTime, 0, 255));
+          setUnitColor(color, i);
+        }
       }
     }
   }
@@ -279,7 +424,8 @@ namespace Led
     {
 
       // No solid colors pressed - just run the current animation
-      carnivalWhoosh();
+      // carnivalWhoosh();
+      monochromeBasic();
     }
     else
     {
