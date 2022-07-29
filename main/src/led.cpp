@@ -239,17 +239,17 @@ namespace Led
     return lround(metersHeight * 60.0);
   }
 
-  // strongman animation
   void carnivalWhoosh()
   {
     antennaSolidColor(CRGB::Black);
     whipSolidColor(CRGB::Black);
 
     const CRGB rgbWhooshColor = CRGB::White; // so artsy
-    const uint32_t msPerStepConverge = 250;
-    const uint32_t msConverge = 6 * msPerStepConverge;
+    // const uint32_t msPerStepConverge = 250;
+    // const uint32_t msConverge = 6 * msPerStepConverge;
     const uint32_t msTimeInFlight = 3334;
-    const uint32_t msTimeRest = 500;
+    const uint32_t msConverge = msTimeInFlight;
+    const uint32_t msTimeRest = 200;
     const uint32_t msTotalLength = msConverge + msTimeInFlight + msTimeRest; // how long this whole animation is
     uint32_t msInCycle = millis() % msTotalLength;                           // how far we are into the current cycle
     uint32_t msInCurrentStage = 0;
@@ -258,9 +258,26 @@ namespace Led
     {
       msInCurrentStage = msInCycle;
 
-      uint8_t whip = msInCurrentStage / msPerStepConverge;
-      whipSolidColor(rgbWhooshColor, whip);
-      whipSolidColor(rgbWhooshColor, 11 - whip);
+      // calculate the "position" of this color which is moving in over the course of 6 seconds
+      const double dStart = -0.3333; // start position
+      const double dEnd = 5.3333;    // end position
+      double dPosition = map((double)msInCycle, 0.0, (double)msConverge, dStart, dEnd);
+
+      for (int whip = 0; whip < 6; whip++)
+      {
+        // how far is this whip from the "position"?
+        double dDistance = abs(dPosition - (double)whip);
+        if (dDistance < 0.8)
+        {
+          CRGB color = CRGB::White;
+
+          uint8_t byteDistance = min(255, lround(dDistance * 375.0));
+          color.fadeLightBy(byteDistance);
+
+          whipSolidColor(color, whip);
+          whipSolidColor(color, 11 - whip);
+        }
+      }
     }
     else if (msInCycle < msConverge + msTimeInFlight)
     {
@@ -277,7 +294,6 @@ namespace Led
     }
   }
 
-  // monochrome basic animation
   void monochromeBasic()
   {
     static bool initialSetup = false; // true when we set up the first time
@@ -411,7 +427,6 @@ namespace Led
     }
   }
 
-  // lgbtq flag
   void lgbtq(bool btrans = false)
   {
     const uint32_t num_colors = 11;
@@ -533,7 +548,6 @@ namespace Led
     }
   }
 
-  // renegadeburn - UNDONE - do something with the whips
   void renegadeBurn()
   {
     static uint16_t x = 0;
@@ -571,7 +585,6 @@ namespace Led
     }
   }
 
-  // sea - UNDONE - do something with the whips
   void sea()
   {
     static uint16_t x = 0;
@@ -721,7 +734,7 @@ namespace Led
         break;
 
       case 6:
-        ufo();
+        lgbtq(true);
         break;
 
       case 5:
@@ -746,7 +759,7 @@ namespace Led
 
       case 0:
       default:
-        lgbtq(true);
+        ufo();
         break;
       }
     }
