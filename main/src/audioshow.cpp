@@ -42,8 +42,8 @@ namespace Audioshow
     }
 
     elapsedMillis fps;
-    uint8_t leftPeak = 0;
-    uint8_t rightPeak = 0;
+    float leftPeak = 0.0;
+    float rightPeak = 0.0;
 
     void loop()
     {
@@ -52,8 +52,8 @@ namespace Audioshow
             if (peak_L.available() && peak_R.available())
             {
                 fps = 0;
-                leftPeak = peak_L.read() * 7.0;
-                rightPeak = peak_R.read() * 7.0;
+                leftPeak = peak_L.read();
+                rightPeak = peak_R.read();
             }
         }
     }

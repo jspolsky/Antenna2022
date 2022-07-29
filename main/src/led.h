@@ -10,7 +10,7 @@ namespace Led
         uint8_t brightnessWhips,
         uint8_t brightnessAntennas,
         bool bAudioMode,
-        uint8_t leftPeak,
-        uint8_t rightPeak);
+        float leftPeak,
+        float rightPeak);
 
 }; // namespace Led
