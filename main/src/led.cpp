@@ -412,7 +412,7 @@ namespace Led
   }
 
   // lgbtq flag
-  void lgbtq()
+  void lgbtq(bool btrans = false)
   {
     const uint32_t num_colors = 11;
     static CRGB prideColors[num_colors] =
@@ -449,6 +449,7 @@ namespace Led
     };
 
     static uint8_t nextColor = 10;
+    static uint8_t transNextColor = 0;
     static uint32_t millisCycle = millis();
     static bool bPushInIsOver = true;
 
@@ -456,6 +457,11 @@ namespace Led
     EVERY_N_MILLISECONDS(millisPerCycle)
     {
       nextColor = (nextColor + 1) % num_colors;
+      if (btrans)
+      {
+        transNextColor = (transNextColor + 1) % 3;
+        nextColor = transNextColor + 6;
+      }
       millisCycle = millis();
       bPushInIsOver = false;
     }
@@ -740,7 +746,7 @@ namespace Led
 
       case 0:
       default:
-        fire();
+        lgbtq(true);
         break;
       }
     }
