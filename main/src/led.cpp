@@ -628,7 +628,7 @@ namespace Led
 
     x = 0;
     t = millis() / 5;
-    scale = beatsin8(10, 10, 10);
+    scale = beatsin8(5, 10, 10);
 
     for (int i = 0; i < 90; i++)
     {
