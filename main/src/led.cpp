@@ -421,7 +421,7 @@ namespace Led
             CRGB::White,
             CHSV(224, 255, 255),
             CHSV(144, 255, 255),
-            CHSV(16, 255, 96),
+            CHSV(16, 255, 64),
             CRGB::Black,
         };
     const uint32_t millisPerCycle = 12000L;
@@ -522,7 +522,7 @@ namespace Led
     }
   }
 
-  // renegadeburn
+  // renegadeburn - UNDONE - do something with the whips
   void renegadeBurn()
   {
     static uint16_t x = 0;
@@ -557,7 +557,7 @@ namespace Led
     }
   }
 
-  // sea
+  // sea - UNDONE - do something with the whips
   void sea()
   {
     static uint16_t x = 0;
