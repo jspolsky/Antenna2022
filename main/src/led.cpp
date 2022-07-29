@@ -164,6 +164,72 @@ namespace Led
     }
   }
 
+  void whipAudioMotion(float leftPeak, float rightPeak)
+  {
+    static float rgLeft[12] =
+        {
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+        };
+    static float rgRight[12] =
+        {
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+        };
+
+    EVERY_N_MILLIS(50)
+    {
+      for (int i = 0; i < 11; i++)
+      {
+        rgLeft[i] = rgLeft[i + 1];
+        rgRight[i] = rgRight[i + 1];
+      }
+
+      rgLeft[11] = leftPeak;
+      rgRight[11] = rightPeak;
+
+      whipSolidColor(CRGB::Black);
+
+      for (int whip = 0; whip < 12; whip++)
+      {
+        // whip height is 110
+        long leftHeightInPixels = lround(rgLeft[whip] * 55.0);
+        for (int j = 55; j < 55 + leftHeightInPixels && j < 110; j++)
+        {
+          setWhipPixel(j, CRGB::Red, whip);
+        }
+
+        long rightHeightInPixels = lround(rgRight[whip] * 55.0);
+        for (int j = 54; j > 54 - rightHeightInPixels && j > 0; j--)
+        {
+          setWhipPixel(j, CRGB::Green, whip);
+        }
+
+        setWhipPixel(55, CRGB::Blue, whip);
+      }
+    }
+  }
+
   // antenna always has blinking red light at the top
   // "for airplanes" but also so we can always find
   // our way home, no matter what pattern is showing!
@@ -679,7 +745,7 @@ namespace Led
     {
       // if an audio jack is plugged in,
       // run the audio program
-      whipAudio(leftPeak, rightPeak);
+      whipAudioMotion(leftPeak, rightPeak);
     }
     else
     {
