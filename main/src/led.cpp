@@ -134,30 +134,34 @@ namespace Led
   // not very excited by this VU meter. But it's something
   void whipAudio(float leftPeak, float rightPeak)
   {
-    // just do left channel for the moment
 
-    static float maxPeakSeen = 0.0;
-
-    // scale it to 0-12 to represent position on LEDs
-    float leftPeakScaled = leftPeak * 14.0 - 2.0;
-    if (leftPeakScaled > maxPeakSeen)
+    EVERY_N_MILLIS(50)
     {
-      maxPeakSeen = leftPeakScaled;
-    }
-    else
-    {
-      maxPeakSeen = maxPeakSeen - 0.05;
-    }
+      // just do left channel for the moment
 
-    whipSolidColor(CRGB(0, 0, 16));
+      static float maxPeakSeen = 0.0;
 
-    for (int ixWhip = 0; ixWhip < leftPeakScaled; ixWhip++)
-    {
-      whipSolidColor(CRGB(255, 0, 0), ixWhip);
+      // scale it to 0-12 to represent position on LEDs
+      float leftPeakScaled = leftPeak * 14.0 - 2.0;
+      if (leftPeakScaled > maxPeakSeen)
+      {
+        maxPeakSeen = leftPeakScaled;
+      }
+      else
+      {
+        maxPeakSeen = maxPeakSeen - 0.25;
+      }
+
+      whipSolidColor(CRGB(0, 0, 16));
+
+      for (int ixWhip = 0; ixWhip < leftPeakScaled; ixWhip++)
+      {
+        whipSolidColor(CRGB(255, 0, 0), ixWhip);
+      }
+
+      int maxPeakSeenI = min(lround(maxPeakSeen), 11);
+      whipSolidColor(CRGB(0, 128, 0), (maxPeakSeenI));
     }
-
-    int maxPeakSeenI = min(lround(maxPeakSeen), 11);
-    whipSolidColor(CRGB(0, 128, 0), (maxPeakSeenI));
   }
 
   // antenna always has blinking red light at the top
