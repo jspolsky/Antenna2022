@@ -83,26 +83,6 @@ namespace Led
     }
   }
 
-  void antennaTestPattern()
-  {
-    static uint8_t test_hue = 0;
-
-    EVERY_N_MILLISECONDS(10)
-    {
-      test_hue = (test_hue + 1) % 255;
-    }
-
-    uint16_t height = (millis() % 1000) * 9 / 10;
-
-    for (uint16_t i = 0; i < 900; i++)
-    {
-      if (i > height)
-        setAntennaPixel(i, CRGB::Black);
-      else
-        setAntennaPixel(i, CHSV(test_hue, 255, 255));
-    }
-  }
-
   void antennaSolidColor(CRGB rgb)
   {
     for (uint16_t i = 0; i < 900; i++)
@@ -148,32 +128,6 @@ namespace Led
         if (whichColor == pbuttonState->cColors)
           whichColor = 1;
       }
-    }
-  }
-
-  void whipTestPattern()
-  {
-    static uint8_t test_hue = 0;
-    static uint8_t test_whip = 0;
-
-    EVERY_N_MILLISECONDS(100)
-    {
-      test_hue = (test_hue + 1) % 255;
-    }
-
-    EVERY_N_SECONDS(1)
-    {
-      test_whip = (test_whip + 1) % 13;
-    }
-
-    uint16_t height = (millis() % 1000) * 110 / 1000;
-
-    for (uint16_t i = 0; i < 110; i++)
-    {
-      if (i > height)
-        setWhipPixel(i, CRGB::Black, test_whip);
-      else
-        setWhipPixel(i, CHSV(test_hue, 255, 255), test_whip);
     }
   }
 
