@@ -224,6 +224,16 @@ namespace Led
       setAntennaPixel(i, rgb);
   }
 
+  // calculates the pixel location of an object that started flying
+  // up from pixel 0 at startSpeed speed (in m/s), after ms time elapsed
+  auto pixelLocationAtTime(double startSpeed, long msElapsed)
+  {
+    double time = (msElapsed / 1000.0);
+    const double gravity = 9.80665;
+    double metersHeight = startSpeed * time - gravity * time * time / 2.0;
+    return lround(metersHeight * 60.0);
+  }
+
   // strongman animation
   void carnivalWhoosh()
   {
@@ -250,10 +260,8 @@ namespace Led
     else if (msInCycle < msConverge + msTimeInFlight)
     {
       msInCurrentStage = msInCycle - msConverge;
-      double time = (msInCurrentStage / 1000.0);
-      const double gravity = 9.80665;
-      double metersHeight = 16.35 * time - gravity * time * time / 2.0;
-      uint32_t pixelsHeight = lround(metersHeight * 60.0);
+
+      uint32_t pixelsHeight = pixelLocationAtTime(16.35, msInCurrentStage);
       const uint32_t slugHeightInPixels = 83; // to match the physical height of the whips in the antenna
 
       for (uint32_t i = pixelsHeight; i < pixelsHeight + slugHeightInPixels; i++)
@@ -304,15 +312,6 @@ namespace Led
       return iRandom;
     };
 
-    auto dbgprintModes = [&]()
-    {
-      for (uint32_t i = 0; i < cUnits; i++)
-      {
-        dbgprintf("%d", rgmode[i]);
-      }
-      dbgprintf("\n");
-    };
-
     if (!initialSetup)
     {
 
@@ -343,8 +342,6 @@ namespace Led
         else if (rgmode[i] == ModeGoingOn)
           rgmode[i] = ModeOn;
       }
-
-      dbgprintModes();
 
       //    pick 7 at random that are OFF and change them to going on
       //    pick 7 at random that are ON and change them to going off
@@ -458,15 +455,6 @@ namespace Led
       bPushInIsOver = false;
     }
 
-    // show antenna
-    for (uint32_t i = 0; i < num_colors; i++)
-    {
-      for (uint32_t ixPixel = 81 * i; ixPixel < 81 * (i + 1) && ixPixel < 900; ixPixel++)
-      {
-        setAntennaPixel(ixPixel, prideColors[rgAntennaState[i]]);
-      }
-    }
-
     // show whips
     whipSolidColor(CRGB::Black);
 
@@ -494,17 +482,43 @@ namespace Led
         }
       }
     }
-    else if (!bPushInIsOver)
+    else
     {
-      // just go in here once at the end of millisToMoveIn
-      bPushInIsOver = true;
-
-      // rearrange the antenna!
-      for (uint32_t i = num_colors - 1; i > 0; i--)
+      if (!bPushInIsOver)
       {
-        rgAntennaState[i] = rgAntennaState[i - 1];
+        // just go in here once at the end of millisToMoveIn
+        bPushInIsOver = true;
+
+        // rearrange the antenna!
+        for (uint32_t i = num_colors - 1; i > 0; i--)
+        {
+          rgAntennaState[i] = rgAntennaState[i - 1];
+        }
+        rgAntennaState[0] = nextColor;
       }
-      rgAntennaState[0] = nextColor;
+    }
+
+    antennaSolidColor(CRGB::Black);
+
+    // show antenna
+    for (uint32_t i = 0; i < num_colors; i++)
+    {
+      long pixelOffset = 0;
+
+      // Is there an offset for this block of the antenna
+      // caused by the bounce?
+      if (millisInCycle > millisToMoveIn)
+        pixelOffset = pixelLocationAtTime((double)i * 2.0, (millisInCycle - millisToMoveIn));
+
+      if (pixelOffset < 0)
+        pixelOffset = 0;
+
+      for (uint32_t ixPixel = 81 * i + pixelOffset;
+           ixPixel < 81 * (i + 1) + pixelOffset && ixPixel < 900;
+           ixPixel++)
+      {
+        setAntennaPixel(ixPixel, prideColors[rgAntennaState[i]]);
+      }
     }
   }
 
