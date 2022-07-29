@@ -55,6 +55,90 @@ namespace Led
       pixels[i] = CHSV(hues[i], saturations[i], 255);
     }
 
+    // UFO
+    static uint8_t hueUFO = 0;
+    EVERY_N_MILLIS(5)
+    {
+      hueUFO = (hueUFO + 1) % 256;
+    }
+    pixels[8] = CHSV(hueUFO, 255, 192);
+
+    // monochrome
+    uint32_t msInCycle = millis() % 3000;
+    if (msInCycle < 2000)
+    {
+      pixels[9] = CRGB::Blue;
+    }
+    else
+    {
+      pixels[9] = CRGB::Black;
+    }
+
+    // carnival
+    msInCycle = millis() % 1000;
+    CRGB color = CRGB::White;
+    if (msInCycle < 500)
+    {
+      color.fadeLightBy(map(msInCycle, 0, 500, 0, 255));
+    }
+    pixels[10] = color;
+
+    // pride
+    const uint32_t num_colors = 11;
+    static CRGB prideColors[num_colors] =
+        {
+            CRGB::Red,
+            CHSV(16, 255, 255),
+            CHSV(64, 255, 255),
+            CHSV(108, 255, 128),
+            CRGB::DarkBlue,
+            CHSV(198, 255, 128),
+            CRGB::White,
+            CHSV(224, 255, 255),
+            CHSV(144, 255, 255),
+            CHSV(16, 255, 64),
+            CRGB::Black,
+        };
+    static int currentColor = 0;
+    EVERY_N_MILLIS(300)
+    {
+      currentColor = (currentColor + 1) % num_colors;
+    }
+    pixels[11] = prideColors[currentColor];
+
+    // renegade
+    static uint8_t hueRenegade = 0;
+    EVERY_N_MILLIS(1)
+    {
+      hueRenegade = (hueRenegade + 1) % 256;
+    }
+    pixels[12] = CHSV(hueRenegade, 255, 255);
+
+    // seagreen
+    static uint8_t hueSea = 0;
+    EVERY_N_MILLIS(10)
+    {
+      hueSea = (hueSea + 1) % 256;
+    }
+    pixels[13] = CHSV(map(hueSea, 0, 255, 96, 180), 255, 255);
+
+    // trans trance
+    const uint32_t trans_num_colors = 3;
+    static CRGB transColors[trans_num_colors] =
+        {
+            CRGB::White,
+            CHSV(224, 255, 255),
+            CHSV(144, 255, 255),
+        };
+    static int trans_currentColor = 0;
+    EVERY_N_MILLIS(300)
+    {
+      trans_currentColor = (trans_currentColor + 1) % trans_num_colors;
+    }
+    pixels[14] = transColors[trans_currentColor];
+
+    pixels[15] = HeatColor(beatsin8(80));
+
     FastLED.show();
   }
 
