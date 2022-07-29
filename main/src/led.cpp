@@ -522,6 +522,73 @@ namespace Led
     }
   }
 
+  // renegadeburn
+  void renegadeBurn()
+  {
+    static uint16_t x = 0;
+    int scale = 2; // higher numbers: bigger blobs of color. Lower numbers: smaller blobs.
+    static uint16_t t = 0;
+
+    for (uint16_t i = 0; i < 900; i++)
+    {
+      uint8_t noise = inoise8(i / scale + x, t);
+      uint8_t hue = map(noise, 50, 190, 0, 255); // spread results out into 0-255 hue range.
+                                                 // try other ranges, like 0-64 for orange/yellow or 96-180 for bluegreen https://github.com/FastLED/FastLED/wiki/FastLED-HSV-Colors
+
+      // OPTION ONE - just use hue to get a full-rainbow
+      setAntennaPixel(i, CHSV(hue, 255, 255));
+      // adjust the second param of beatsin. 164 makes a pronounced throb. 192 is gently throb. 64 is rock and roll
+      // OPTION TWO - pick color from a palette
+      // pixels[i] = ColorFromPalette(caribbean, hue);
+    }
+
+    // actually seriously consider adding beatsin8() to the global brightness as a completely independent genome, for
+    // all patterns.
+
+    EVERY_N_MILLISECONDS(10)
+    {
+      // adjusting x slides the whole pattern up and down
+      // subtracting from x slides the pattern up the antenna
+      // adding to x slides the pattern down the antenna
+      x -= 3; // lower numbers: slower. Higher numbers: faster. 10 is kinda average.
+
+      // adjusting t morphs the whole pattern smoothly
+      t += 1; // 1 is probably too slow. 10 is about as fast as you can see!
+    }
+  }
+
+  // sea
+  void sea()
+  {
+    static uint16_t x = 0;
+    int scale = 2; // higher numbers: bigger blobs of color. Lower numbers: smaller blobs.
+    static uint16_t t = 0;
+
+    for (uint16_t i = 0; i < 900; i++)
+    {
+      uint8_t noise = inoise8(i / scale + x, t);
+      uint8_t hue = map(noise, 50, 190, 96, 180); // spread results out into 0-255 hue range.
+                                                  // try other ranges, like 0-64 for orange/yellow or 96-180 for bluegreen https://github.com/FastLED/FastLED/wiki/FastLED-HSV-Colors
+
+      // OPTION ONE - just use hue to get a full-rainbow
+      setAntennaPixel(i, CHSV(hue, 255, 255));
+      // adjust the second param of beatsin. 164 makes a pronounced throb. 192 is gently throb. 64 is rock and roll
+      // OPTION TWO - pick color from a palette
+      // pixels[i] = ColorFromPalette(caribbean, hue);
+    }
+
+    EVERY_N_MILLISECONDS(10)
+    {
+      // adjusting x slides the whole pattern up and down
+      // subtracting from x slides the pattern up the antenna
+      // adding to x slides the pattern down the antenna
+      x -= 3; // lower numbers: slower. Higher numbers: faster. 10 is kinda average.
+
+      // adjusting t morphs the whole pattern smoothly
+      t += 1; // 1 is probably too slow. 10 is about as fast as you can see!
+    }
+  }
+
   // top level LED show.
   void loop(
       Controller::ButtonState *pbuttonState,
@@ -540,6 +607,14 @@ namespace Led
 
       switch (pbuttonState->animation)
       {
+      case 4:
+        renegadeBurn();
+        break;
+
+      case 3:
+        lgbtq();
+        break;
+
       case 2:
         carnivalWhoosh();
         break;
@@ -550,7 +625,7 @@ namespace Led
 
       case 0:
       default:
-        lgbtq();
+        sea();
         break;
       }
     }
