@@ -689,7 +689,7 @@ namespace Led
     setAntennaPixel(pixel, CRGB::Gray);
     setAntennaPixel(pixel - 1, CRGB::White);
     setAntennaPixel(pixel - 2, CRGB::Gray);
-    fadeToBlackBy(pixels, 3600, 10);
+    fadeToBlackBy(pixels, 3600, 1);
   }
 
   // top level LED show.
