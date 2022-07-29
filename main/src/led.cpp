@@ -119,6 +119,11 @@ namespace Led
     }
   }
 
+  void fadeWhipToBlack(int oneWhip, uint8_t by)
+  {
+    fadeToBlackBy(pixels + ((oneWhip + 12) * ledsPerStrip), 110, by);
+  }
+
   // Some solid color buttons are being pressed; show those colors
   //
   void solidPattern(Controller::ButtonState *pbuttonState)
@@ -540,6 +545,9 @@ namespace Led
       // adjust the second param of beatsin. 164 makes a pronounced throb. 192 is gently throb. 64 is rock and roll
       // OPTION TWO - pick color from a palette
       // pixels[i] = ColorFromPalette(caribbean, hue);
+
+      if (i < 12)
+        whipSolidColor(CHSV(hue, 255, 255), i);
     }
 
     // actually seriously consider adding beatsin8() to the global brightness as a completely independent genome, for
@@ -575,6 +583,9 @@ namespace Led
       // adjust the second param of beatsin. 164 makes a pronounced throb. 192 is gently throb. 64 is rock and roll
       // OPTION TWO - pick color from a palette
       // pixels[i] = ColorFromPalette(caribbean, hue);
+
+      if (i < 12)
+        whipSolidColor(CHSV(hue, 255, 255), i);
     }
 
     EVERY_N_MILLISECONDS(10)
@@ -586,6 +597,48 @@ namespace Led
 
       // adjusting t morphs the whole pattern smoothly
       t += 1; // 1 is probably too slow. 10 is about as fast as you can see!
+    }
+  }
+
+  void ufo()
+  {
+    static uint8_t hue_cylon = 0;
+
+    EVERY_N_MILLIS(10)
+    {
+
+      uint16_t cypos = scale8(cubicwave8(millis() / 10), 11);
+      for (int i = 0; i < 12; i++)
+      {
+        fadeWhipToBlack(i, 16);
+      }
+      whipSolidColor(CHSV(hue_cylon, 255, 255), cypos);
+    }
+
+    EVERY_N_MILLIS(300)
+    {
+      hue_cylon++;
+    }
+
+    // now the antenna:
+
+    uint16_t x;
+    int scale;
+    uint16_t t;
+
+    x = 0;
+    t = millis() / 5;
+    scale = beatsin8(10, 10, 10);
+
+    for (int i = 0; i < 90; i++)
+    {
+      uint8_t noise = inoise8(i * scale + x, t);
+      uint8_t hue = map(noise, 50, 190, 0, 255);
+      setAntennaPixel(i * 10, CRGB::Black);
+      for (int j = i * 10 + 1; j < (i + 1) * 10; j++)
+      {
+        setAntennaPixel(j, CHSV(hue, 255, 128));
+      }
     }
   }
 
@@ -607,6 +660,10 @@ namespace Led
 
       switch (pbuttonState->animation)
       {
+      case 5:
+        sea();
+        break;
+
       case 4:
         renegadeBurn();
         break;
@@ -625,7 +682,7 @@ namespace Led
 
       case 0:
       default:
-        sea();
+        ufo();
         break;
       }
     }
