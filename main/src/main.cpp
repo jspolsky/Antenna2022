@@ -18,6 +18,13 @@ void setup()
 void loop()
 {
 
+  static bool audioMode = false;
+
+  EVERY_N_MILLIS(100)
+  {
+    audioMode = Audioshow::jack_plugged_in();
+  }
+
   Audioshow::loop();
 
   uint8_t brightnessWhips, brightnessAntennas;
@@ -27,6 +34,7 @@ void loop()
   Led::loop(pbuttonState,
             brightnessWhips,
             brightnessAntennas,
+            audioMode,
             Audioshow::leftPeak,
             Audioshow::rightPeak);
 }

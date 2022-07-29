@@ -13,7 +13,6 @@ namespace Audioshow
 {
 
     const int myInput = AUDIO_INPUT_LINEIN;
-    // const int myInput = AUDIO_INPUT_MIC;
 
     AudioInputI2S audioInput; // audio shield: mic or line-in
     AudioAnalyzePeak peak_L;
@@ -33,6 +32,13 @@ namespace Audioshow
         audioShield.enable();
         audioShield.inputSelect(myInput);
         audioShield.volume(0.5);
+
+        pinMode(5, INPUT_PULLUP);
+    }
+
+    bool jack_plugged_in()
+    {
+        return digitalRead(5);
     }
 
     elapsedMillis fps;

@@ -131,45 +131,38 @@ namespace Led
     }
   }
 
-  // void whipTestPatternAudio(uint8_t leftPeak, uint8_t rightPeak)
-  // {
-
-  //   // Whip tests
-  //   for (int ixStrip = 0; ixStrip < 12; ixStrip++)
-  //   {
-  //     // left channel audio
-  //     if (ixStrip < 6)
-  //     {
-  //       uint8_t leftPeak_inv = 6 - leftPeak;
-  //       if (ixStrip < leftPeak_inv)
-  //       {
-  //         for (int ixPosition = 0; ixPosition < 110; ixPosition++)
-  //           setPixelColor(ixStrip + 12, ixPosition, CRGB::Black);
-  //       }
-  //       else
-  //       {
-  //         for (int ixPosition = 0; ixPosition < 110; ixPosition++)
-  //           setPixelColor(ixStrip + 12, ixPosition, CRGB(CHSV(((ixStrip - 12) * 20), 255, 255)));
-  //       }
-  //     }
-  //     // right channel
-  //     else
-  //     {
-  //       if (ixStrip - 5 > rightPeak)
-  //       {
-  //         for (int ixPosition = 0; ixPosition < 110; ixPosition++)
-  //           setPixelColor(ixStrip + 12, ixPosition, CRGB::Black);
-  //       }
-  //       else
-  //       {
-  //         for (int ixPosition = 0; ixPosition < 110; ixPosition++)
-  //           setPixelColor(ixStrip + 12, ixPosition, CRGB(CHSV(((ixStrip - 12) * 20), 255, 255)));
-  //       }
-  //     }
-  //   }
-
-  //   FastLED.show();
-  // }
+  void whipAudio(uint8_t leftPeak, uint8_t rightPeak)
+  {
+    // Whip tests
+    for (int ixStrip = 0; ixStrip < 12; ixStrip++)
+    {
+      // left channel audio
+      if (ixStrip < 6)
+      {
+        uint8_t leftPeak_inv = 6 - leftPeak;
+        if (ixStrip < leftPeak_inv)
+        {
+          whipSolidColor(CRGB::Black, ixStrip);
+        }
+        else
+        {
+          whipSolidColor(CRGB(CHSV(((ixStrip - 12) * 20), 255, 255)), ixStrip);
+        }
+      }
+      // right channel
+      else
+      {
+        if (ixStrip - 5 > rightPeak)
+        {
+          whipSolidColor(CRGB::Black, ixStrip);
+        }
+        else
+        {
+          whipSolidColor(CRGB(CHSV(((ixStrip - 12) * 20), 255, 255)), ixStrip);
+        }
+      }
+    }
+  }
 
   // antenna always has blinking red light at the top
   // "for airplanes" but also so we can always find
@@ -670,17 +663,27 @@ namespace Led
       Controller::ButtonState *pbuttonState,
       uint8_t brightnessWhips,
       uint8_t brightnessAntennas,
+      bool bAudioMode,
       uint8_t leftPeak,
       uint8_t rightPeak)
   {
     g_brightnessWhips = brightnessWhips;
     g_brightnessAntennas = brightnessAntennas;
 
-    if (pbuttonState->cColors == 0)
+    if (pbuttonState->cColors > 0)
     {
-
-      // No solid colors pressed - just run the current animation
-
+      // solid color buttons always work
+      solidPattern(pbuttonState);
+    }
+    else if (bAudioMode)
+    {
+      // if an audio jack is plugged in,
+      // run the audio program
+      whipAudio(leftPeak, rightPeak);
+    }
+    else
+    {
+      // run the animation
       switch (pbuttonState->animation)
       {
       case 7:
@@ -716,10 +719,6 @@ namespace Led
         ufo();
         break;
       }
-    }
-    else
-    {
-      solidPattern(pbuttonState);
     }
 
     antennaRedBlinky();

@@ -9,6 +9,7 @@ namespace Led
         Controller::ButtonState *pButtonState,
         uint8_t brightnessWhips,
         uint8_t brightnessAntennas,
+        bool bAudioMode,
         uint8_t leftPeak,
         uint8_t rightPeak);
 
