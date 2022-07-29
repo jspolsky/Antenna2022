@@ -642,6 +642,56 @@ namespace Led
     }
   }
 
+  void fire()
+  {
+    // FIRE ON THE WHIPS!
+
+    const int NUM_LEDS = 110;
+    const int NUM_WHIPS = 12;
+    const int COOLING = 75;
+    const int SPARKING = 120;
+
+    static uint8_t heat[NUM_WHIPS][NUM_LEDS];
+
+    for (int whip = 0; whip < NUM_WHIPS; whip++)
+    {
+
+      // Step 1.  Cool down every cell a little
+      for (int i = 0; i < NUM_LEDS; i++)
+      {
+        heat[whip][i] = qsub8(heat[whip][i], random8(0, ((COOLING * 10) / NUM_LEDS) + 2));
+      }
+
+      // Step 2.  Heat from each cell drifts 'up' and diffuses a little
+      for (int k = NUM_LEDS - 1; k >= 2; k--)
+      {
+        heat[whip][k] = (heat[whip][k - 1] + heat[whip][k - 2] + heat[whip][k - 2]) / 3;
+      }
+
+      // Step 3.  Randomly ignite new 'sparks' of heat near the bottom
+      if (random8() < SPARKING)
+      {
+        int y = random8(7);
+        heat[whip][y] = qadd8(heat[whip][y], random8(160, 255));
+      }
+
+      // Step 4.  Map from heat cells to LED colors
+      for (int j = 0; j < NUM_LEDS; j++)
+      {
+        CRGB color = HeatColor(heat[whip][j]);
+        setWhipPixel(j, color, whip);
+      }
+    }
+
+    // STARS ON THE ANTENNA!
+
+    uint16_t pixel = max(3, random16(900));
+    setAntennaPixel(pixel, CRGB::Gray);
+    setAntennaPixel(pixel - 1, CRGB::White);
+    setAntennaPixel(pixel - 2, CRGB::Gray);
+    fadeToBlackBy(pixels, 3600, 10);
+  }
+
   // top level LED show.
   void loop(
       Controller::ButtonState *pbuttonState,
@@ -660,6 +710,14 @@ namespace Led
 
       switch (pbuttonState->animation)
       {
+      case 7:
+        fire();
+        break;
+
+      case 6:
+        ufo();
+        break;
+
       case 5:
         sea();
         break;
@@ -682,7 +740,7 @@ namespace Led
 
       case 0:
       default:
-        ufo();
+        fire();
         break;
       }
     }
