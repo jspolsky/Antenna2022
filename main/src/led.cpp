@@ -444,7 +444,7 @@ namespace Led
             CHSV(16, 255, 64),
             CRGB::Black,
         };
-    const uint32_t millisPerCycle = 12000L;
+    const uint32_t millisPerCycle = 11000L;
     const uint32_t millisToMoveIn = 6000L;
 
     // what's on the antenna? Starting at the bottom
