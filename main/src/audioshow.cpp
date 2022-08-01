@@ -41,20 +41,15 @@ namespace Audioshow
         return digitalRead(5);
     }
 
-    elapsedMillis fps;
     float leftPeak = 0.0;
     float rightPeak = 0.0;
 
     void loop()
     {
-        //        if (fps > 24)
+        if (peak_L.available() && peak_R.available())
         {
-            if (peak_L.available() && peak_R.available())
-            {
-                fps = 0;
-                leftPeak = peak_L.read();
-                rightPeak = peak_R.read();
-            }
+            leftPeak = peak_L.read();
+            rightPeak = peak_R.read();
         }
     }
 

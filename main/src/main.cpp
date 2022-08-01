@@ -19,13 +19,22 @@ void loop()
 {
 
   static bool audioMode = false;
+  static uint32_t lastAudioMillis = millis();
+
+  Audioshow::loop();
 
   EVERY_N_MILLIS(100)
   {
     audioMode = Audioshow::jack_plugged_in();
+    if (Audioshow::leftPeak > 0.01 || Audioshow::rightPeak > 0.01)
+    {
+      lastAudioMillis = millis();
+    }
+    if (millis() - lastAudioMillis > 3000L)
+    {
+      audioMode = false;
+    }
   }
-
-  Audioshow::loop();
 
   uint8_t brightnessWhips, brightnessAntennas;
   Brightness::loop(&brightnessWhips, &brightnessAntennas);
