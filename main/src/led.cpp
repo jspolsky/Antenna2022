@@ -703,9 +703,9 @@ namespace Led
     // STARS ON THE ANTENNA!
 
     uint16_t pixel = max(3, random16(900));
-    setAntennaPixel(pixel, CRGB::Gray);
+    setAntennaPixel(pixel, CRGB(12, 12, 64));
     setAntennaPixel(pixel - 1, CRGB::White);
-    setAntennaPixel(pixel - 2, CRGB::Gray);
+    setAntennaPixel(pixel - 2, CRGB(12, 12, 64));
     fadeToBlackBy(pixels, 3600, 1);
   }
 
