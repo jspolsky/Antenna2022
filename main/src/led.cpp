@@ -228,6 +228,18 @@ namespace Led
 
         setWhipPixel(55, CRGB::Blue, whip);
       }
+
+      // antenna
+
+      for (int i = 0; i < 90; i++)
+      {
+        uint8_t hue = lround(leftPeak * 256.0);
+        setAntennaPixel(i * 10, CRGB::Black);
+        for (int j = i * 10 + 1; j < (i + 1) * 10; j++)
+        {
+          setAntennaPixel(j, CHSV(hue, 255, 128));
+        }
+      }
     }
   }
 
