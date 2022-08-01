@@ -164,6 +164,7 @@ namespace Led
     }
   }
 
+  // this is much more fun
   void whipAudioMotion(float leftPeak, float rightPeak)
   {
     static float rgLeft[12] =
@@ -255,41 +256,33 @@ namespace Led
   void carnivalWhoosh()
   {
     antennaSolidColor(CRGB::Black);
-    whipSolidColor(CRGB::Black);
+
+    EVERY_N_MILLIS(1)
+    {
+      for (int i = 0; i < 12; i++)
+        fadeWhipToBlack(i, 64);
+    }
 
     const CRGB rgbWhooshColor = CRGB::White; // so artsy
-    // const uint32_t msPerStepConverge = 250;
-    // const uint32_t msConverge = 6 * msPerStepConverge;
     const uint32_t msTimeInFlight = 3334;
-    const uint32_t msConverge = msTimeInFlight;
+    const uint32_t msConverge = 300;
     const uint32_t msTimeRest = 200;
     const uint32_t msTotalLength = msConverge + msTimeInFlight + msTimeRest; // how long this whole animation is
     uint32_t msInCycle = millis() % msTotalLength;                           // how far we are into the current cycle
     uint32_t msInCurrentStage = 0;
 
-    if (msInCycle < msConverge) // bands of light converge from outside in on the whips
+    if (msInCycle < msConverge) // bands of light converge from right to left on the whips
     {
       msInCurrentStage = msInCycle;
 
       // calculate the "position" of this color which is moving in over the course of 6 seconds
-      const double dStart = -0.3333; // start position
-      const double dEnd = 5.3333;    // end position
+      const double dStart = 11.3333; // start position
+      const double dEnd = -0.3333;   // end position
       double dPosition = map((double)msInCycle, 0.0, (double)msConverge, dStart, dEnd);
-
-      for (int whip = 0; whip < 6; whip++)
+      long lPosition = lround(dPosition);
+      if (lPosition >= 0 && lPosition < 12)
       {
-        // how far is this whip from the "position"?
-        double dDistance = abs(dPosition - (double)whip);
-        if (dDistance < 0.8)
-        {
-          CRGB color = CRGB::White;
-
-          uint8_t byteDistance = min(255, lround(dDistance * 375.0));
-          color.fadeLightBy(byteDistance);
-
-          whipSolidColor(color, whip);
-          whipSolidColor(color, 11 - whip);
-        }
+        whipSolidColor(CRGB::White, lPosition);
       }
     }
     else if (msInCycle < msConverge + msTimeInFlight)
@@ -457,8 +450,8 @@ namespace Led
             CHSV(16, 255, 64),
             CRGB::Black,
         };
-    const uint32_t millisPerCycle = 11000L;
-    const uint32_t millisToMoveIn = 6000L;
+    const uint32_t millisPerCycle = 6000L;
+    const uint32_t millisToMoveIn = 350L;
 
     // what's on the antenna? Starting at the bottom
 
@@ -494,31 +487,23 @@ namespace Led
       bPushInIsOver = false;
     }
 
-    // show whips
-    whipSolidColor(CRGB::Black);
+    EVERY_N_MILLIS(1)
+    {
+      for (int i = 0; i < 12; i++)
+        fadeWhipToBlack(i, 64);
+    }
 
     uint32_t millisInCycle = millis() - millisCycle;
     if (millisInCycle < millisToMoveIn)
     {
-      // calculate the "position" of this color which is moving in over the course of 6 seconds
-      const double dStart = -0.3333; // start position
-      const double dEnd = 5.3333;    // end position
+      // calculate the "position" of this color which is moving in over the course of 1 second
+      const double dStart = 11.3333; // start position
+      const double dEnd = -0.3333;   // end position
       double dPosition = map((double)millisInCycle, 0.0, (double)millisToMoveIn, dStart, dEnd);
-
-      for (int whip = 0; whip < 6; whip++)
+      long lPosition = lround(dPosition);
+      if (lPosition >= 0 && lPosition < 12)
       {
-        // how far is this whip from the "position"?
-        double dDistance = abs(dPosition - (double)whip);
-        if (dDistance < 0.8)
-        {
-          CRGB color = prideColors[nextColor];
-
-          uint8_t byteDistance = min(255, lround(dDistance * 375.0));
-          color.fadeLightBy(byteDistance);
-
-          whipSolidColor(color, whip);
-          whipSolidColor(color, 11 - whip);
-        }
+        whipSolidColor(prideColors[nextColor], lPosition);
       }
     }
     else
