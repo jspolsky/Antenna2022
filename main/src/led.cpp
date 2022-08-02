@@ -732,7 +732,7 @@ namespace Led
 
     const int NUM_LEDS = 110;
     const int NUM_WHIPS = 12;
-    const int COOLING = 75;
+    const int COOLING = 85;
     const int SPARKING = 120;
 
     static uint8_t heat[NUM_WHIPS][NUM_LEDS];
