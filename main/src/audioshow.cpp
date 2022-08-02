@@ -17,12 +17,9 @@ namespace Audioshow
     AudioInputI2S audioInput; // audio shield: mic or line-in
     AudioAnalyzePeak peak_L;
     AudioAnalyzePeak peak_R;
-    AudioOutputI2S audioOutput; // audio shield: headphones & line-out
 
     AudioConnection c1(audioInput, 0, peak_L, 0);
     AudioConnection c2(audioInput, 1, peak_R, 0);
-    AudioConnection c3(audioInput, 0, audioOutput, 0);
-    AudioConnection c4(audioInput, 1, audioOutput, 1);
 
     AudioControlSGTL5000 audioShield;
 

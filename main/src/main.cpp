@@ -46,4 +46,13 @@ void loop()
             audioMode,
             Audioshow::leftPeak,
             Audioshow::rightPeak);
+
+  static int fps = 0;
+  fps++;
+
+  EVERY_N_MILLIS(1000)
+  {
+    dbgprintf("fps: %d\n", fps);
+    fps = 0;
+  }
 }
