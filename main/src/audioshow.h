@@ -1,5 +1,7 @@
 #pragma once
 #include <Arduino.h>
+#define FASTLED_INTERNAL
+#include <FastLED.h>
 
 namespace Audioshow
 {
@@ -9,4 +11,5 @@ namespace Audioshow
 
     extern float leftPeak;
     extern float rightPeak;
+    extern float fftBands[];
 }; // namespace Audioshow

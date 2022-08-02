@@ -11,6 +11,7 @@ namespace Led
         uint8_t brightnessAntennas,
         bool bAudioMode,
         float leftPeak,
-        float rightPeak);
+        float rightPeak,
+        float *fftBands);
 
 }; // namespace Led

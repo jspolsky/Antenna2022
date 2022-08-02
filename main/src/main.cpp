@@ -45,7 +45,8 @@ void loop()
             brightnessAntennas,
             audioMode,
             Audioshow::leftPeak,
-            Audioshow::rightPeak);
+            Audioshow::rightPeak,
+            Audioshow::fftBands);
 
   static int fps = 0;
   fps++;

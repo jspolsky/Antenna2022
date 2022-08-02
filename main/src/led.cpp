@@ -164,8 +164,23 @@ namespace Led
     }
   }
 
+  void whipAudioFFT(float *fftBands)
+  {
+    whipSolidColor(CRGB::Black);
+
+    for (int i = 0; i < 6; i++)
+    {
+      long lHeight = lround(fftBands[i] * 110);
+      for (int j = 0; j < lHeight; j++)
+      {
+        setWhipPixel(j, CRGB::Green, i * 2);
+        setWhipPixel(j, CRGB::Green, i * 2 + 1);
+      }
+    }
+  }
+
   // this is much more fun
-  void whipAudioMotion(float leftPeak, float rightPeak)
+  void whipAudioLevels(float leftPeak, float rightPeak)
   {
     static float rgLeft[12] =
         {
@@ -728,7 +743,8 @@ namespace Led
       uint8_t brightnessAntennas,
       bool bAudioMode,
       float leftPeak,
-      float rightPeak)
+      float rightPeak,
+      float *fftBands)
   {
     g_brightnessWhips = brightnessWhips;
     g_brightnessAntennas = brightnessAntennas;
@@ -742,7 +758,9 @@ namespace Led
     {
       // if an audio jack is plugged in,
       // run the audio program
-      whipAudioMotion(leftPeak, rightPeak);
+
+      // whipAudioLevels(leftPeak, rightPeak);
+      whipAudioFFT(fftBands);
     }
     else
     {
