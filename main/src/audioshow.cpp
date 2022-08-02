@@ -59,12 +59,12 @@ namespace Audioshow
 
         if (fft1024.available())
         {
-            fftBands[0] = fft1024.read(0, 1);
-            fftBands[1] = fft1024.read(2, 5);
-            fftBands[2] = fft1024.read(6, 13);
-            fftBands[3] = fft1024.read(14, 29);
-            fftBands[4] = fft1024.read(30, 61);
-            fftBands[5] = fft1024.read(62, 128);
+            fftBands[0] = 2.0 * fft1024.read(0, 1);
+            fftBands[1] = 2.0 * fft1024.read(2, 5);
+            fftBands[2] = 2.0 * fft1024.read(6, 13);
+            fftBands[3] = 2.0 * fft1024.read(14, 29);
+            fftBands[4] = 2.0 * fft1024.read(30, 61);
+            fftBands[5] = 2.0 * fft1024.read(62, 128);
         }
     }
 

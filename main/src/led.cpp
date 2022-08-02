@@ -99,9 +99,10 @@ namespace Led
     }
   }
 
-  void fadeWhipToBlack(int oneWhip, uint8_t by)
+  void fadeWhipsToBlack(uint8_t by)
   {
-    fadeToBlackBy(pixels + ((oneWhip + 12) * ledsPerStrip), 110, by);
+    for (int whip = 0; whip < 12; whip++)
+      fadeToBlackBy(pixels + ((whip + 12) * ledsPerStrip), 110, by);
   }
 
   // Some solid color buttons are being pressed; show those colors
@@ -166,15 +167,53 @@ namespace Led
 
   void whipAudioFFT(float *fftBands)
   {
-    whipSolidColor(CRGB::Black);
+    fadeWhipsToBlack(32);
+    static uint8_t hueBasis = 0;
+
+    EVERY_N_MILLIS(100)
+    {
+      hueBasis = (hueBasis + 1) % 256;
+    }
 
     for (int i = 0; i < 6; i++)
     {
       long lHeight = lround(fftBands[i] * 110);
-      for (int j = 0; j < lHeight; j++)
+      for (int j = 0; j < lHeight && j < 110; j++)
       {
-        setWhipPixel(j, CRGB::Green, i * 2);
-        setWhipPixel(j, CRGB::Green, i * 2 + 1);
+        uint8_t hue = (hueBasis + j) % 255;
+
+        CRGB color = CHSV(hue, 255, 255);
+        if (j % 12 == 11)
+          color = CRGB::Black;
+
+        setWhipPixel(j, color, i * 2);
+        setWhipPixel(j, color, i * 2 + 1);
+      }
+    }
+
+    // draw bass lines
+    EVERY_N_MILLIS(50)
+    {
+      // antenna
+      antennaSolidColor(CHSV(hueBasis, 255, 255));
+
+      CRGB colorOpposite = CHSV((hueBasis + 128) % 256, 255, 255);
+      long lBassLineHeight = lround((fftBands[0] + fftBands[1]) * 100);
+      for (int i = 150; i <= 750; i += 300)
+      {
+        for (int j = 0; j < lBassLineHeight; j++)
+        {
+          setAntennaPixel(i + j, colorOpposite);
+          setAntennaPixel(i - j, colorOpposite);
+        }
+        setAntennaPixel(i - lBassLineHeight, CRGB::Black);
+        setAntennaPixel(i + lBassLineHeight, CRGB::Black);
+      }
+
+      long lTrebleLineHeight = lround((fftBands[5]) * 120);
+      for (int i = 0; i < lTrebleLineHeight; i++)
+      {
+        setAntennaPixel(random(900), CRGB::White);
       }
     }
   }
@@ -286,8 +325,7 @@ namespace Led
 
     EVERY_N_MILLIS(1)
     {
-      for (int i = 0; i < 12; i++)
-        fadeWhipToBlack(i, 64);
+      fadeWhipsToBlack(64);
     }
 
     const CRGB rgbWhooshColor = CRGB::White; // so artsy
@@ -516,8 +554,7 @@ namespace Led
 
     EVERY_N_MILLIS(1)
     {
-      for (int i = 0; i < 12; i++)
-        fadeWhipToBlack(i, 64);
+      fadeWhipsToBlack(64);
     }
 
     uint32_t millisInCycle = millis() - millisCycle;
@@ -652,10 +689,7 @@ namespace Led
     {
 
       uint16_t cypos = scale8(cubicwave8(millis() / 10), 11);
-      for (int i = 0; i < 12; i++)
-      {
-        fadeWhipToBlack(i, 16);
-      }
+      fadeWhipsToBlack(16);
       whipSolidColor(CHSV(hue_cylon, 255, 255), cypos);
     }
 
@@ -759,8 +793,16 @@ namespace Led
       // if an audio jack is plugged in,
       // run the audio program
 
-      // whipAudioLevels(leftPeak, rightPeak);
-      whipAudioFFT(fftBands);
+      static bool whichAudioDisplay = false;
+      EVERY_N_SECONDS(300)
+      {
+        whichAudioDisplay = !whichAudioDisplay;
+      }
+
+      if (whichAudioDisplay)
+        whipAudioLevels(leftPeak, rightPeak);
+      else
+        whipAudioFFT(fftBands);
     }
     else
     {
