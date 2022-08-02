@@ -354,8 +354,13 @@ namespace Led
     {
       msInCurrentStage = msInCycle - msConverge;
 
-      uint32_t pixelsHeight = pixelLocationAtTime(16.35, msInCurrentStage);
-      const uint32_t slugHeightInPixels = 83; // to match the physical height of the whips in the antenna
+      uint32_t pixelsHeight = pixelLocationAtTime(16.65, msInCurrentStage);
+
+      uint32_t slugHeightInPixels = 83; // to match the physical height of the whips in the antenna
+      if (pixelsHeight > 700)
+      {
+        slugHeightInPixels -= ((pixelsHeight - 700) / 3);
+      }
 
       for (uint32_t i = pixelsHeight; i < pixelsHeight + slugHeightInPixels; i++)
       {
@@ -708,12 +713,13 @@ namespace Led
     t = millis() / 5;
     scale = beatsin8(5, 10, 10);
 
-    for (int i = 0; i < 90; i++)
+    for (int i = 0; i < 30; i++)
     {
       uint8_t noise = inoise8(i * scale + x, t);
       uint8_t hue = map(noise, 50, 190, 0, 255);
-      setAntennaPixel(i * 10, CRGB::Black);
-      for (int j = i * 10 + 1; j < (i + 1) * 10; j++)
+      setAntennaPixel(i * 30, CRGB::Black);
+      setAntennaPixel(i * 30 + 1, CRGB::Black);
+      for (int j = i * 30 + 2; j < (i + 1) * 30; j++)
       {
         setAntennaPixel(j, CHSV(hue, 255, 128));
       }
