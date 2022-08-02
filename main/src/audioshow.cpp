@@ -65,17 +65,6 @@ namespace Audioshow
             fftBands[3] = fft1024.read(14, 29);
             fftBands[4] = fft1024.read(30, 61);
             fftBands[5] = fft1024.read(62, 128);
-
-            for (int i = 0; i < 6; i++)
-            {
-                dbgprintf("%d ", lround(fftBands[i] * 100.0));
-            }
-            dbgprintf("\n");
-        }
-
-        EVERY_N_MILLISECONDS(1000)
-        {
-            dbgprintf("AudioMemoryMax %d\n", AudioMemoryUsageMax());
         }
     }
 
