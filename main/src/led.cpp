@@ -791,11 +791,19 @@ namespace Led
 
     // STARS ON THE ANTENNA!
 
-    uint16_t pixel = max(3, random16(900));
-    setAntennaPixel(pixel, CRGB(12, 12, 64));
-    setAntennaPixel(pixel - 1, CRGB::White);
-    setAntennaPixel(pixel - 2, CRGB(12, 12, 64));
-    fadeToBlackBy(pixels, 3600, 1);
+    EVERY_N_MILLIS(125)
+    {
+      uint16_t pixel = max(3, random16(900));
+      CRGB edgeColor = CHSV(random(256), random(64), random(128));
+      setAntennaPixel(pixel, edgeColor);
+      setAntennaPixel(pixel - 1, CRGB::White);
+      setAntennaPixel(pixel - 2, edgeColor);
+    }
+
+    EVERY_N_MILLIS(250)
+    {
+      fadeToBlackBy(pixels, 3600, 1);
+    }
   }
 
   // top level LED show.
