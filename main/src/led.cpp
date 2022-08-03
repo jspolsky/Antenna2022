@@ -629,16 +629,7 @@ namespace Led
 
       // OPTION ONE - just use hue to get a full-rainbow
       setAntennaPixel(i, CHSV(hue, 255, 255));
-      // adjust the second param of beatsin. 164 makes a pronounced throb. 192 is gently throb. 64 is rock and roll
-      // OPTION TWO - pick color from a palette
-      // pixels[i] = ColorFromPalette(caribbean, hue);
-
-      if (i < 12)
-        whipSolidColor(CHSV(hue, 255, 255), i);
     }
-
-    // actually seriously consider adding beatsin8() to the global brightness as a completely independent genome, for
-    // all patterns.
 
     EVERY_N_MILLISECONDS(10)
     {
@@ -649,6 +640,33 @@ namespace Led
 
       // adjusting t morphs the whole pattern smoothly
       t += 1; // 1 is probably too slow. 10 is about as fast as you can see!
+    }
+
+    // whips do a lil sine wave thingy
+
+    // there are three waves
+    static uint8_t hueSin[3] = {64, 128, 192};
+    static long speedSin[3] = {1000, 2000, 4000};
+    static uint8_t thickSin[3] = {3, 2, 1};
+
+    whipSolidColor(CRGB::Black);
+
+    EVERY_N_MILLIS(100)
+    {
+      for (int wave = 0; wave < 3; wave++)
+        hueSin[wave] = (1 + hueSin[wave]) % 256;
+    }
+
+    for (int wave = 0; wave < 3; wave++)
+    {
+      for (int i = 0; i < 12; i++)
+      {
+        uint16_t sinValue = beatsin16(20, 0, 95, 0, i * speedSin[wave]);
+        for (long j = sinValue - thickSin[wave]; j < sinValue + thickSin[wave]; j++)
+          if (j >= 0 && j < 110)
+            setWhipPixel(j, CHSV(hueSin[wave], 255, 255), i);
+        //
+      }
     }
   }
 
@@ -669,9 +687,6 @@ namespace Led
       // adjust the second param of beatsin. 164 makes a pronounced throb. 192 is gently throb. 64 is rock and roll
       // OPTION TWO - pick color from a palette
       // pixels[i] = ColorFromPalette(caribbean, hue);
-
-      if (i < 12)
-        whipSolidColor(CHSV(hue, 255, 255), i);
     }
 
     EVERY_N_MILLISECONDS(10)
@@ -683,6 +698,13 @@ namespace Led
 
       // adjusting t morphs the whole pattern smoothly
       t += 1; // 1 is probably too slow. 10 is about as fast as you can see!
+    }
+
+    fadeWhipsToBlack(4);
+    EVERY_N_MILLISECONDS(500)
+    {
+      for (int i = 0; i < 3; i++)
+        whipSolidColor(CHSV(random(256), random(0, 256), random(192, 256)), random(12));
     }
   }
 
@@ -828,7 +850,7 @@ namespace Led
         break;
 
       case 4:
-        renegadeBurn();
+        ufo();
         break;
 
       case 3:
@@ -845,7 +867,7 @@ namespace Led
 
       case 0:
       default:
-        ufo();
+        renegadeBurn();
         break;
       }
     }
